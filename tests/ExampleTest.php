@@ -1,6 +1,6 @@
 <?php
 
-namespace Ergare17/Articles;
+namespace Ergare17\Articles;
 
 class ExampleTest extends \PHPUnit\Framework\TestCase
 {

@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Ergare17/Articles\\": "src"
+            "Ergare17\\Articles\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Ergare17/Articles\\": "tests"
+            "Ergare17\\Articles\\": "tests"
         }
     },
     "scripts": {
