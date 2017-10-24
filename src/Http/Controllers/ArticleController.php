@@ -114,6 +114,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        Article::destroy($article->id);
+        return 'Deleted ok!';
     }
 }

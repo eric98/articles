@@ -28,7 +28,7 @@ class ArticlesServiceProvider extends ServiceProvider
 
     public function defineRoutes()
     {
-        require ARTICLES_PATH.'/src/routes/web.php';
+        require ARTICLES_PATH.'/routes/web.php';
     }
 
     private function loadViews(){
