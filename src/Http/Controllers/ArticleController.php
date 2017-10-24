@@ -39,11 +39,8 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            $article = Article::create(['title' => $request->title, 'description' => $request->description]);
-        } catch (Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
-        }
+        Article::create(['title' => $request->title, 'description' => $request->description]);
+
         return view('articles::successfull_article');
     }
 
@@ -91,7 +88,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles::edit_article');
+        return view('articles::edit_article',compact('article'));
     }
 
     /**
