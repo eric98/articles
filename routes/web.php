@@ -6,7 +6,7 @@ Route::group(['namespace' => "Ergare17\Articles\Http\Controllers", "middleware" 
     Route::get('/articles/create','ArticleController@create');
     Route::post('/articles/create','ArticleController@store');
 
-    Route::get('/articles/edit/{article}','ArticleController@edit');
+    Route::get('/articles/edit','ArticleController@edit');
 
     Route::delete('/articles/{article}','ArticleController@destroy');  // 2 Retrieve -> 1 recurs concret
     Route::get('/articles/{article}','ArticleController@show'); // 2 Retrieve -> recurs concret

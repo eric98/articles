@@ -88,7 +88,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles::edit_article',compact('article'));
+        return view('articles::edit_article');
     }
 
     /**
@@ -112,6 +112,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         Article::destroy($article->id);
-        return 'Deleted ok!';
+        return Redirect::to('/articles');
     }
 }

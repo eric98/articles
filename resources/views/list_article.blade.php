@@ -5,3 +5,5 @@
         <li>Description: {{ $article->description }}</li>
     </ul>
 @endforeach
+
+{{ $status or '' }}
