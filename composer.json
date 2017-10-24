@@ -41,6 +41,14 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Ergare17\\Articles\\Providers\\ArticlesServiceProvider"
+            ],
+            "aliases": {
+                "Ergare17Articles": "Ergare17\\Articles\\Ergare17Articles"
+            }
         }
     },
     "config": {

@@ -3,7 +3,7 @@
 namespace Ergare17\Articles\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Route;
+use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 
 class ArticlesServiceProvider extends ServiceProvider
 {
@@ -13,6 +13,8 @@ class ArticlesServiceProvider extends ServiceProvider
         if (!defined('ARTICLES_PATH')) {
             define('ARTICLES_PATH', realpath(__DIR__.'/../../'));
         }
+
+        $this->registerEloquentFactoriesFrom(ARTICLES_PATH . '/database/factories');
     }
 
     public function boot()
@@ -45,4 +47,15 @@ class ArticlesServiceProvider extends ServiceProvider
 //            ];
 //        });
 //    }
+
+    /**
+     * Register factories.
+     *
+     * @param  string  $path
+     * @return void
+     */
+    protected function registerEloquentFactoriesFrom($path)
+    {
+        $this->app->make(EloquentFactory::class)->load($path);
+    }
 }
