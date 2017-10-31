@@ -19,3 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/articles','APIArticlesController@index');
 Route::get('/articles/{article}','APIArticlesController@show');
+
+//Route::group(['namespace' => 'Ergare17\Articles\Http\Controllers', 'middleware' => 'api'], function(){
+//    Route::get('/api/articles', 'APIArticlesController@index');
+//    Route::get('/api/articles/{article}', 'APIArticlesController@show');
+//});

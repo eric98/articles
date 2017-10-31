@@ -5,6 +5,8 @@ namespace Ergare17\Articles\Http\Controllers;
 use Ergare17\Articles\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Redirect;
+use Session;
 
 class ArticleController extends Controller
 {
@@ -111,7 +113,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        Article::destroy($article->id);
+        $article->delete();
+        Session::flash('status', 'Article was deleted successful!');
         return Redirect::to('/articles');
     }
 }
