@@ -1,7 +1,10 @@
 <h1>Articles:</h1>
 
-{{ Session::get('status') or '' }}
-{{--{{ Session::get('status') }}--}}
+<form action="/articles/create" method="GET">
+    <input type="submit" value="Create an article">
+</form>
+
+{{ Session::get('status') }}
 
 @foreach ($articles as $article)
     <ul>

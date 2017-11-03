@@ -23,7 +23,6 @@ class ArticlesServiceProvider extends ServiceProvider
         $this->defineRoutes();
         $this->loadViews();
         $this->loadMigrations();
-//        $this->loadFactories();
     }
 
     public function defineRoutes()
@@ -38,15 +37,6 @@ class ArticlesServiceProvider extends ServiceProvider
     private function loadMigrations(){
         $this->loadMigrationsFrom(ARTICLES_PATH.'/database/migrations');
     }
-
-//    private function loadFactories(){
-//        $factory->define(App\Article::class, function (Faker $faker) {
-//            return [
-//                'title' => $faker->sentence,
-//                'description' => $faker->text
-//            ];
-//        });
-//    }
 
     /**
      * Register factories.

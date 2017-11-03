@@ -41,9 +41,13 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        Article::create(['title' => $request->title, 'description' => $request->description]);
+//        Article::create(['title' => $request->title, 'description' => $request->description]);
+        Article::create($request->only(['title','description']));
 
-        return view('articles::successfull_article');
+        Session::flash('status', 'Created ok!');
+        return Redirect::to('/articles/create');
+
+//        return view('articles::successfull_article');
     }
 
     /**
@@ -90,7 +94,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles::edit_article');
+        return view('articles::edit_article',['article' => $article]);
     }
 
     /**
@@ -102,7 +106,13 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+//        $article->title = $request->input('title');
+//        $article->description = $request->input('description');
+//        $article->save();
+        $article->update($request->only(['title','description']));
+
+        Session::flash('status', 'Edited ok!');
+        return Redirect::to('/articles/edit/'.$article->id);
     }
 
     /**
