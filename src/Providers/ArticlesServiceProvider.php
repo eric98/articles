@@ -13,7 +13,6 @@ class ArticlesServiceProvider extends ServiceProvider
         if (!defined('ARTICLES_PATH')) {
             define('ARTICLES_PATH', realpath(__DIR__.'/../../'));
         }
-
         $this->registerEloquentFactoriesFrom(ARTICLES_PATH . '/database/factories');
     }
 
@@ -27,7 +26,18 @@ class ArticlesServiceProvider extends ServiceProvider
 
     public function defineRoutes()
     {
+        $this->defineWebRoutes();
+        $this->defineApiRoutes();
+    }
+
+    public function defineWebRoutes()
+    {
         require ARTICLES_PATH.'/routes/web.php';
+    }
+
+    public function defineApiRoutes()
+    {
+        require ARTICLES_PATH.'/routes/api.php';
     }
 
     private function loadViews(){

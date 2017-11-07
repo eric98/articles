@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Ergare17\Articles\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
