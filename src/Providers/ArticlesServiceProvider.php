@@ -2,6 +2,9 @@
 
 namespace Ergare17\Articles\Providers;
 
+use Ergare17\Articles\Console\Commands\CreateArticleCommand;
+use Ergare17\Articles\Console\Commands\DeleteArticleCommand;
+use Ergare17\Articles\Console\Commands\ListArticlesCommand;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 
@@ -22,6 +25,18 @@ class ArticlesServiceProvider extends ServiceProvider
         $this->defineRoutes();
         $this->loadViews();
         $this->loadMigrations();
+        $this->loadCommands();
+    }
+
+    protected function loadCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CreateArticleCommand::class,
+                ListArticlesCommand::class,
+                DeleteArticleCommand::class
+            ]);
+        }
     }
 
     public function defineRoutes()
