@@ -12,6 +12,7 @@ use Tests\TestCase;
 class ApiArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
+    //TODO arreglar tests
 
     public function setUp()
     {

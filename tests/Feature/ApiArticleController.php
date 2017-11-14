@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Ergare17\Articles\Models\Article;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,6 +11,7 @@ class ApiArticleController extends TestCase
 {
     use RefreshDatabase;
 
+
     /**
      * A basic test example.
      *
@@ -17,8 +19,13 @@ class ApiArticleController extends TestCase
      */
     public function testShowArticlesViaApi()
     {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user);
+
         $articles = factory(Article::class,5)->create();
-        $response = $this->json('GET','/api/articles');
+
+        $response = $this->json('GET','/api/v1/articles');
 
         $response->assertSuccessful();
 
@@ -29,12 +36,17 @@ class ApiArticleController extends TestCase
 
     public function testShowArticleViaApi()
     {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user);
+
         $article = factory(Article::class)->create();
-        $response = $this->json('GET','/api/articles/'.$article->id);
+        $response = $this->json('GET','/api/v1/articles/'.$article->id);
 
         $response->assertSuccessful();
+        $response->dump();
         $response->assertJsonStructure([[
-            'id','title','description','created_at','updated_at'
+            'id','title','description'
         ]]);
         $response->assertJson([
             'id' => $article->id,
@@ -47,7 +59,11 @@ class ApiArticleController extends TestCase
 
     public function testShowArticlesViaApiAreBlankIfDatabaseIsEmpty()
     {
-        $response = $this->json('GET','/api/articles');
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user);
+
+        $response = $this->json('GET','/api/v1/articles');
         // TODO comprovar es buit!
         $response->assertSuccessful();
     }

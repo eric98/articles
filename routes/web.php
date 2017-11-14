@@ -18,11 +18,11 @@ Route::group(['namespace' => "Ergare17\Articles\Http\Controllers", "middleware" 
         Route::get('/articles_alt/{id}', 'ArticleController@show1'); // 2 Retrieve -> recurs concret
 
         //API
-        Route::get('/api/v1/articles', 'ArticleController@index');
-        Route::get('/api/v1//articles/{article}', 'ArticleController@show');
-        Route::post('/api/v1//articles', 'ArticleController@store');
-        Route::put('/api/v1//articles/{article}', 'ArticleController@update');
-        Route::delete('/api/v1//articles/{article}', 'ArticleController@destroy');
+        Route::get('/api/v1/articles', 'APIArticlesController@index');
+        Route::get('/api/v1/articles/{article}', 'APIArticlesController@show');
+        Route::post('/api/v1/articles', 'APIArticlesController@store');
+        Route::put('/api/v1/articles/{article}', 'APIArticlesController@update');
+        Route::delete('/api/v1/articles/{article}', 'APIArticlesController@destroy');
 
     });
 });
