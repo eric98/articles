@@ -1,29 +1,36 @@
-<h1>Articles:</h1>
+@extends('adminlte::layouts.app')
 
-<form action="/articles/create" method="GET">
-    <input type="submit" value="Create an article">
-</form>
+@section('htmlheader_title')
+    Articles
+@endsection
 
-{{ Session::get('status') }}
 
-@foreach ($articles as $article)
-    <ul>
-        <li>Title: {{ $article->title }}</li>
-        <li>Description: {{ $article->description }}</li>
-        <form action="/articles/{{ $article->id }}" method="GET" style="display:inline">
-            <input type="submit" value="Show">
-        </form>
+@section('main-content')
+    <h1>Articles:</h1>
 
-        <form action="/articles/edit/{{ $article->id }}" method="GET" style="display:inline">
-            <input type="submit" value="Edit">
-        </form>
+    <form action="/articles/create" method="GET">
+        <input type="submit" value="Create an Article">
+    </form>
 
-        <form action="/articles/{{ $article->id }}" method="POST" style="display:inline">
-            <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="submit" value="Delete">
-        </form>
-    </ul>
-@endforeach
+    {{ Session::get('status') }}
 
-{{ $status or '' }}
+    @foreach ($articles as $article)
+        <ul>
+            <li>Title: {{ $article->title }}</li>
+            <li>Description: {{ $article->description }}</li>
+            <form action="/articles/{{ $article->id }}" method="GET" style="display:inline">
+                <input type="submit" value="Show">
+            </form>
+
+            <form action="/articles/edit/{{ $article->id }}" method="GET" style="display:inline">
+                <input type="submit" value="Edit">
+            </form>
+
+            <form action="/articles/{{ $article->id }}" method="POST" style="display:inline">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="submit" value="Delete">
+            </form>
+        </ul>
+    @endforeach
+@endsection

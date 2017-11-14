@@ -1,10 +1,19 @@
-<h1>Article:</h1>
+@extends('adminlte::layouts.app')
 
-<ul>
-    <li>Title: {{ $article->title }}</li>
-    <li>Description: {{ $article->description }}</li>
-</ul>
+@section('htmlheader_title')
+    Articles
+@endsection
 
-<form action="/articles" method="GET">
-    <input type="submit" value="List Articles">
-</form>
+
+@section('main-content')
+    <h1>Article:</h1>
+
+    <ul>
+        <li>Title: {{ $article->title }}</li>
+        <li>Description: {{ $article->description }}</li>
+    </ul>
+
+    <form action="/articles" method="GET">
+        <input type="submit" value="List Articles">
+    </form>
+@endsection
