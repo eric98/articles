@@ -111,15 +111,16 @@ class ArticlesTest extends TestCase
         $responseFinal->assertSeeText($article->description);
     }
 
-    //TODO fer que el article creat es guardi a la base de dades
     public function testStoreArticleForm()
     {
         // Preparo
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
         $article = factory(Article::class)->make();
         // Executo
         $response = $this->post('/articles',[
             'title' => $article->title,
-            'description' => $article->description,
+            'description' => $article->description
         ]);
          //Comprovo
         $this->assertDatabaseHas('articles',[
@@ -142,7 +143,6 @@ class ArticlesTest extends TestCase
         ]);
         // Comprovo
         $response->assertRedirect('articles/edit/'.$article->id);
-        $response->assertSeeText('Edited ok!');
 
         $this->assertDatabaseHas('articles',[
             'id' =>  $article->id,
@@ -160,6 +160,8 @@ class ArticlesTest extends TestCase
     public function testDeleteArticle()
     {
         // Preparo
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
         $article = factory(Article::class)->create();
 //        dump(Article::all()->count());
         // Executo
@@ -168,14 +170,12 @@ class ArticlesTest extends TestCase
 //        ]);
         $response = $this->call('DELETE','/articles/' . $article->id);
 
-//        $response->dump();
         // Comprovo
         $this->assertDatabaseMissing('articles', [
             'title' => $article->title,
-            'description' => $article->description,
+            'description' => $article->description
         ]);
 
-//        $response->assertStatus(200);
         $response->assertRedirect('articles');
 //        $response->assertSeeText('Deleted ok!');
 

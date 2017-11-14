@@ -9,6 +9,8 @@
 </head>
 <body>
 
+{{ Session::get('status') }}
+
 <h1>Edit Article:</h1>
 
 <form action="/articles/{{ $article->id }}" method="POST">

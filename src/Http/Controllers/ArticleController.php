@@ -106,9 +106,6 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-//        $article->title = $request->input('title');
-//        $article->description = $request->input('description');
-//        $article->save();
         $article->update($request->only(['title','description']));
 
         Session::flash('status', 'Edited ok!');
