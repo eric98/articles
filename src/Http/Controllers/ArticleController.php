@@ -41,13 +41,10 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-//        Article::create(['title' => $request->title, 'description' => $request->description]);
         Article::create($request->only(['title','description']));
 
         Session::flash('status', 'Created ok!');
         return Redirect::to('/articles/create');
-
-//        return view('articles::successfull_article');
     }
 
     /**
