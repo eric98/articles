@@ -12,7 +12,6 @@ use Tests\TestCase;
 class ApiArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
-    //TODO arreglar tests
 
     public function setUp()
     {
@@ -25,7 +24,7 @@ class ApiArticleControllerTest extends TestCase
      */
     public function can_list_articles()
     {
-        $articles = factory(Article::class,3)->create();
+        factory(Article::class,3)->create();
 
         $user = factory(User::class)->create();
         $this->actingAs($user);
@@ -186,7 +185,7 @@ class ApiArticleControllerTest extends TestCase
 
         // ASSERT
         $response->assertSuccessful();
-        
+
         $this->assertDatabaseHas('articles', [
             'id' => $article->id,
             'title' => $newTitle,
@@ -201,8 +200,8 @@ class ApiArticleControllerTest extends TestCase
 
         $response->assertJson([
             'id' => $article->id,
-            'title' => $article->title,
-            'description' => $article->description
+            'title' => $newTitle,
+            'description' => $newDescription
         ]);
     }
 }

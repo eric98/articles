@@ -45,6 +45,7 @@ class APIArticlesController extends Controller
             'title' => 'required', 'description'
         ]);
         $article->title = $request->title;
+        $article->description = $request->description;
         $article->save();
         return $article;
     }

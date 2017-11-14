@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Ergare17\Articles\Models\Article;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,14 +25,15 @@ class ArticlesTest extends TestCase
         // 2) Executo el codi que vull provar
         // 3) Comprovo: assert
 
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
         $articles = factory(Article::class,50)->create();
 
         $response = $this->get('/articles');
         $response->assertStatus(200);
         $response->assertSuccessful();
         $response->assertViewIs('articles::list_article');
-
-        // TODO Contar que hi ha 50 al resultat
 
         foreach ($articles as $article) {
             $response->assertSeeText($article->title);
@@ -46,6 +48,8 @@ class ArticlesTest extends TestCase
     {
         // Preparo
         $article = factory(Article::class)->create();
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
         // Executo
         $response = $this->get('/articles/'.$article->id);
         // Comprovo
@@ -66,6 +70,8 @@ class ArticlesTest extends TestCase
     public function testNotShowAnArticle()
     {
         // Executo
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
         $response = $this->get('/articles/999999');
         // Comprovo
         $response->assertStatus(404);
@@ -76,6 +82,8 @@ class ArticlesTest extends TestCase
     public function testShowCreateArticleForm()
     {
         // Preparo
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
         // Executo
         $response = $this->get('/articles/create');
         // Comprovo
@@ -88,7 +96,8 @@ class ArticlesTest extends TestCase
     {
         // Preparo
         $article = factory(Article::class)->create();
-
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
         // Executo
         $response = $this->get('/articles/edit/'.$article->id);
         // Comprovo
@@ -96,10 +105,13 @@ class ArticlesTest extends TestCase
         $response->assertViewIs('articles::edit_article');
         $response->assertSeeText('Edit Article');
 
-//        $response->assertSeeText($article->title);
-//        $response->assertSeeText($article->description);
+        $responseFinal = $this->get('/articles/'.$article->id);
+
+        $responseFinal->assertSeeText($article->title);
+        $responseFinal->assertSeeText($article->description);
     }
 
+    //TODO fer que el article creat es guardi a la base de dades
     public function testStoreArticleForm()
     {
         // Preparo
@@ -110,9 +122,6 @@ class ArticlesTest extends TestCase
             'description' => $article->description,
         ]);
          //Comprovo
-//        $response->assertRedirect('articles/create');
-//        $response->assertSeeText('Created ok!');
-
         $this->assertDatabaseHas('articles',[
             'title' => $article->title,
             'description' => $article->description,
@@ -122,6 +131,8 @@ class ArticlesTest extends TestCase
     public function testUpdateArticleForm()
     {
         // Preparo
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
         $article = factory(Article::class)->create();
         // Executo
         $newArticle = factory(Article::class)->make();
@@ -130,7 +141,7 @@ class ArticlesTest extends TestCase
             'description' => $newArticle->description,
         ]);
         // Comprovo
-        $response->assertRedirect('articles/edit');
+        $response->assertRedirect('articles/edit/'.$article->id);
         $response->assertSeeText('Edited ok!');
 
         $this->assertDatabaseHas('articles',[

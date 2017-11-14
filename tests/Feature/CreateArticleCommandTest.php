@@ -17,9 +17,7 @@ class CreateArticleCommandTest extends TestCase
 
         //2) Execute
 
-//        $this->artisan('route:list');
         $this->artisan('article:create', ['title' => 'Comprar','description' => 'Comprar pa al super']);
-//        $this->artisan('article:create');
 
         //3)Assert
         // If you need result of console output
@@ -32,7 +30,7 @@ class CreateArticleCommandTest extends TestCase
         $this->assertContains('Article has been added to database succesfully',$resultAsText);
     }
 
-    public function testItAsksForAArticleNameAndThenCreatesNewArticle2()
+    public function testItAsksForAnArticleAndThenCreatesNewArticle2()
     {
         //1) Prepare
         $command = Mockery::mock('Ergare17\Articles\Console\Commands\CreateArticleCommand[ask]');
@@ -40,12 +38,13 @@ class CreateArticleCommandTest extends TestCase
         $command->shouldReceive('ask')
             ->once()
             ->with('Article title?')
-            ->andReturn('Comprar llet')
-            ->with('Article description?')
-            ->andReturn('Anar a comprar la llet')
-        ;
+            ->andReturn('Comprar llet');
 
-        dump($command);
+        $command->shouldReceive('ask')
+            ->once()
+            ->with('Article description?')
+            ->andReturn('Anar a comprar la llet');
+
         $this->app['Illuminate\Contracts\Console\Kernel']->registerCommand($command);
 
         //2) Execute
@@ -58,6 +57,13 @@ class CreateArticleCommandTest extends TestCase
         $this->assertContains('Article has been added to database succesfully',$resultAsText);
     }
 
-    //TODO fer test per a delete (li passem el id)
-    //TODO fer test per a list (totes les comandes)
+    public function testItAsksForAnArticleAndThenCatchTheError()
+    {
+        try {
+            $this->artisan('article:create');
+        } catch (\Exception $e) {
+            $this->assertTrue(true);
+        }
+    }
+
 }
