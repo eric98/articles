@@ -7,6 +7,7 @@ use App\User;
 use Ergare17\Articles\Models\Article;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\View;
 use Tests\TestCase;
 
 class ApiArticleControllerTest extends TestCase
@@ -27,6 +28,7 @@ class ApiArticleControllerTest extends TestCase
         factory(Article::class,3)->create();
 
         $user = factory(User::class)->create();
+//        View::share('user',$user);
         $this->actingAs($user);
 
         $response = $this->json('GET','/api/v1/articles');

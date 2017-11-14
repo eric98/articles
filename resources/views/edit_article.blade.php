@@ -21,5 +21,9 @@
     <button type="submit">Update</button>
 </form>
 
+<form action="/articles" method="GET">
+    <input type="submit" value="List Articles">
+</form>
+
 </body>
 </html>

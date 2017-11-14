@@ -10,12 +10,16 @@
     <ul>
         <li>Title: {{ $article->title }}</li>
         <li>Description: {{ $article->description }}</li>
-        <li><form action="/articles/{{ $article->id }}" method="POST">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="submit" value="delete">
-            </form>
-        </li>
+        <form action="/articles/{{ $article->id }}" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="submit" value="delete">
+        </form>
+
+        <form action="/articles/edit/{{ $article->id }}" method="GET">
+            <input type="submit" value="edit">
+        </form>
+
     </ul>
 @endforeach
 
