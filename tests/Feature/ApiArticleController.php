@@ -11,6 +11,11 @@ class ApiArticleController extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp()
+    {
+        parent::setUp();
+//        $this->withoutExceptionHandling();
+    }
 
     /**
      * A basic test example.
@@ -44,10 +49,9 @@ class ApiArticleController extends TestCase
         $response = $this->json('GET','/api/v1/articles/'.$article->id);
 
         $response->assertSuccessful();
-        $response->dump();
-        $response->assertJsonStructure([[
-            'id','title','description'
-        ]]);
+        $response->assertJsonStructure([
+            'id','title','description','created_at','updated_at'
+        ]);
         $response->assertJson([
             'id' => $article->id,
             'title'=> $article->title,

@@ -2,7 +2,7 @@
 
 namespace Ergare17\Articles\Http\Controllers;
 
-use App\Article;
+use Ergare17\Articles\Models\Article;
 use Illuminate\Http\Request;
 
 class APIArticlesController extends Controller

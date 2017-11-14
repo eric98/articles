@@ -33,8 +33,6 @@ class ApiArticleControllerTest extends TestCase
         $response = $this->json('GET','/api/v1/articles');
         $response->assertSuccessful();
 
-//        $response->dump();
-
         $response->assertJsonStructure([[
             'id',
             'title',
@@ -57,8 +55,6 @@ class ApiArticleControllerTest extends TestCase
 
         $response->assertSuccessful();
 
-//        $response->dump();
-
         $response->assertJson([
             'id' => $article->id,
             'title' => $article->title,
@@ -77,7 +73,8 @@ class ApiArticleControllerTest extends TestCase
 
         // EXECUTE
         $response = $this->json('POST','/api/v1/articles', [
-            'title' => $title = $faker->word
+            'title' => $title = $faker->word,
+            'description' => $description = $faker->sentence
         ]);
 
         // ASSERT
@@ -115,7 +112,8 @@ class ApiArticleControllerTest extends TestCase
 
         // EXECUTE
         $response = $this->json('POST','/api/v1/articles', [
-            'title' => $title = $faker->word
+            'title' => $title = $faker->word,
+            'description' => $description = $faker->sentence
         ]);
 
         // ASSERT
@@ -124,11 +122,10 @@ class ApiArticleControllerTest extends TestCase
             'title' => $title
         ]);
 
-//        $response->dump();
-
-//        $response->assertJson([
-//            'title' => title
-//        ]);
+        $response->assertJson([
+            'title' => $title,
+            'description' => $description
+        ]);
     }
     
     /**
@@ -183,19 +180,23 @@ class ApiArticleControllerTest extends TestCase
 
         // EXECUTE
         $response = $this->json('PUT','/api/v1/articles/'.$article->id, [
-            'title' => $newTitle = 'NOU NOM'
+            'title' => $newTitle = 'NOU TITOL',
+            'description' => $newDescription = 'nova descripcio'
         ]);
 
         // ASSERT
         $response->assertSuccessful();
+        
         $this->assertDatabaseHas('articles', [
             'id' => $article->id,
-            'title' => $newTitle
+            'title' => $newTitle,
+            'description' => $newDescription
         ]);
 
         $this->assertDatabaseMissing('articles', [
             'id' => $article->id,
-            'title' => $article->title
+            'title' => $article->title,
+            'description' => $article->description
         ]);
 
         $response->assertJson([
