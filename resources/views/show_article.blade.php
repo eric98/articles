@@ -13,7 +13,7 @@
         <li>Description: {{ $article->description }}</li>
     </ul>
 
-    <form action="/articles" method="GET">
+    <form action="/articles_php" method="GET">
         <input type="submit" value="List Articles">
     </form>
 @endsection

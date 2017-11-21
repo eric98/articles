@@ -21,7 +21,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => "Ergare17\Articles\Http\Controllers",'middleware' => 'api','prefix' => 'api/v1', 'middleware' => ['throttle','bindings']], function () {
     Route::group(['middleware' => 'auth:api'], function() {
-//        Route::get('/articles','APIArticlesController@index');
-//        Route::get('/articles/{article}','APIArticlesController@show');
+        Route::get('/articles', 'APIArticlesController@index');
+        Route::get('/articles/{article}', 'APIArticlesController@show');
+        Route::post('/articles', 'APIArticlesController@store');
+        Route::put('/articles/{article}', 'APIArticlesController@update');
+        Route::delete('/articles/{article}', 'APIArticlesController@destroy');
     });
 });

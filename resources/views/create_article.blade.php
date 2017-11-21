@@ -19,7 +19,7 @@
     <input type="submit" value="Create">
 </form>
 
-<form action="/articles" method="GET">
+<form action="/articles_php" method="GET">
     <input type="submit" value="List Articles">
 </form>
 

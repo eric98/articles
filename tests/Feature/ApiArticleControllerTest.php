@@ -29,7 +29,7 @@ class ApiArticleControllerTest extends TestCase
 
         $user = factory(User::class)->create();
 //        View::share('user',$user);
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         $response = $this->json('GET','/api/v1/articles');
         $response->assertSuccessful();
@@ -50,7 +50,7 @@ class ApiArticleControllerTest extends TestCase
         $article = factory(Article::class)->create();
 
         $user = factory(User::class)->create();
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         $response = $this->json('GET', '/api/v1/articles/' . $article->id);
 
@@ -91,7 +91,7 @@ class ApiArticleControllerTest extends TestCase
         $faker = Factory::create();
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         // EXECUTE
         $response = $this->json('POST','/api/v1/articles');
@@ -109,7 +109,7 @@ class ApiArticleControllerTest extends TestCase
         $faker = Factory::create();
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         // EXECUTE
         $response = $this->json('POST','/api/v1/articles', [
@@ -137,7 +137,7 @@ class ApiArticleControllerTest extends TestCase
         $article = factory(Article::class)->create();
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         $response = $this->json('DELETE','/api/v1/articles/'.$article->id);
 
@@ -161,7 +161,7 @@ class ApiArticleControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         $response = $this->json('DELETE','/api/v1/articles/1');
 
@@ -177,7 +177,7 @@ class ApiArticleControllerTest extends TestCase
         $article = factory(Article::class)->create();
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
 
         // EXECUTE
         $response = $this->json('PUT','/api/v1/articles/'.$article->id, [

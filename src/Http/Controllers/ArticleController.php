@@ -44,7 +44,7 @@ class ArticleController extends Controller
         Article::create($request->only(['title','description']));
 
         Session::flash('status', 'Created ok!');
-        return Redirect::to('/articles/create');
+        return Redirect::to('/articles_php/create');
     }
 
     /**
@@ -106,7 +106,7 @@ class ArticleController extends Controller
         $article->update($request->only(['title','description']));
 
         Session::flash('status', 'Edited ok!');
-        return Redirect::to('/articles/edit/'.$article->id);
+        return Redirect::to('/articles_php/edit/'.$article->id);
     }
 
     /**
@@ -119,6 +119,6 @@ class ArticleController extends Controller
     {
         $article->delete();
         Session::flash('status', 'Article was deleted successful!');
-        return Redirect::to('/articles');
+        return Redirect::to('/articles_php');
     }
 }

@@ -8,7 +8,7 @@
 @section('main-content')
     <h1>Articles:</h1>
 
-    <form action="/articles/create" method="GET">
+    <form action="/articles_php/create" method="GET">
         <input type="submit" value="Create an Article">
     </form>
 
@@ -18,15 +18,15 @@
         <ul>
             <li>Title: {{ $article->title }}</li>
             <li>Description: {{ $article->description }}</li>
-            <form action="/articles/{{ $article->id }}" method="GET" style="display:inline">
+            <form action="/articles_php/{{ $article->id }}" method="GET" style="display:inline">
                 <input type="submit" value="Show">
             </form>
 
-            <form action="/articles/edit/{{ $article->id }}" method="GET" style="display:inline">
+            <form action="/articles_php/edit/{{ $article->id }}" method="GET" style="display:inline">
                 <input type="submit" value="Edit">
             </form>
 
-            <form action="/articles/{{ $article->id }}" method="POST" style="display:inline">
+            <form action="/articles_php/{{ $article->id }}" method="POST" style="display:inline">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="submit" value="Delete">

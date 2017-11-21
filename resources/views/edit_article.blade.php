@@ -10,7 +10,7 @@
 
 <h1>Edit Article:</h1>
 
-<form action="/articles/{{ $article->id }}" method="POST">
+<form action="/articles_php/{{ $article->id }}" method="POST">
     {{ csrf_field() }}
     <input type="hidden" name="_method" value="PUT">
     Title: <input type="text" name="title" placeholder="Put your title here" value="{{ $article->title }}" id="title">
@@ -18,7 +18,7 @@
     <button type="submit">Update</button>
 </form>
 
-<form action="/articles" method="GET">
+<form action="/articles_php" method="GET">
     <input type="submit" value="List Articles">
 </form>
 @endsection
