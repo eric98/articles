@@ -1,5 +1,12 @@
 # articles
 
+[![Latest Stable Version](https://poser.pugx.org/ergare17/articles/v/stable)](https://packagist.org/packages/ergare17/articles)
+[![Total Downloads](https://poser.pugx.org/ergare17/articles/downloads)](https://packagist.org/packages/ergare17/articles)
+[![Latest Unstable Version](https://poser.pugx.org/ergare17/articles/v/unstable)](https://packagist.org/packages/ergare17/articles)
+[![License](https://poser.pugx.org/ergare17/articles/license)](https://packagist.org/packages/ergare17/articles)
+[![Monthly Downloads](https://poser.pugx.org/ergare17/articles/d/monthly)](https://packagist.org/packages/ergare17/articles)
+[![Daily Downloads](https://poser.pugx.org/ergare17/articles/d/daily)](https://packagist.org/packages/ergare17/articles)
+[![composer.lock](https://poser.pugx.org/ergare17/articles/composerlock)](https://packagist.org/packages/ergare17/articles)
 [![StyleCI](https://styleci.io/repos/107276023/shield?branch=master)](https://styleci.io/repos/107276023)
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
