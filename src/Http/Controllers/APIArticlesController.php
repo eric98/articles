@@ -30,7 +30,6 @@ class APIArticlesController extends Controller
         ]);
 
         return $article;
-
     }
 
     public function destroy(Request $request, Article $article)
@@ -49,5 +48,4 @@ class APIArticlesController extends Controller
         $article->save();
         return $article;
     }
-
 }

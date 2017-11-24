@@ -23,11 +23,11 @@ class CreateArticleCommandTest extends TestCase
         // If you need result of console output
         $resultAsText = Artisan::output();
 
-        $this->assertDatabaseHas('articles',['title' => 'Comprar','description' => 'Comprar pa al super']);
+        $this->assertDatabaseHas('articles', ['title' => 'Comprar','description' => 'Comprar pa al super']);
 
         //Receive "Article has been added to database succesfully."
 //        $this->assertTrue(str_contains($resultAsText, 'Article has been added to database succesfully'));
-        $this->assertContains('Article has been added to database succesfully',$resultAsText);
+        $this->assertContains('Article has been added to database succesfully', $resultAsText);
     }
 
     public function testItAsksForAnArticleAndThenCreatesNewArticle2()
@@ -50,11 +50,11 @@ class CreateArticleCommandTest extends TestCase
         //2) Execute
         $this->artisan('article:create');
 
-        $this->assertDatabaseHas('articles',['title' => 'Comprar llet']);
+        $this->assertDatabaseHas('articles', ['title' => 'Comprar llet']);
 
         //3) Assert
         $resultAsText = Artisan::output();
-        $this->assertContains('Article has been added to database succesfully',$resultAsText);
+        $this->assertContains('Article has been added to database succesfully', $resultAsText);
     }
 
     public function testItAsksForAnArticleAndThenCatchTheError()
@@ -65,5 +65,4 @@ class CreateArticleCommandTest extends TestCase
             $this->assertTrue(true);
         }
     }
-
 }

@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 
 class ArticlesServiceProvider extends ServiceProvider
 {
-
     public function register()
     {
         if (!defined('ARTICLES_PATH')) {
@@ -55,11 +54,13 @@ class ArticlesServiceProvider extends ServiceProvider
         require ARTICLES_PATH.'/routes/api.php';
     }
 
-    private function loadViews(){
-        $this->loadViewsFrom(ARTICLES_PATH.'/resources/views','articles');
+    private function loadViews()
+    {
+        $this->loadViewsFrom(ARTICLES_PATH.'/resources/views', 'articles');
     }
 
-    private function loadMigrations(){
+    private function loadMigrations()
+    {
         $this->loadMigrationsFrom(ARTICLES_PATH.'/database/migrations');
     }
 

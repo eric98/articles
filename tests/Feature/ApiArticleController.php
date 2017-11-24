@@ -28,9 +28,9 @@ class ApiArticleController extends TestCase
 
         $this->actingAs($user);
 
-        $articles = factory(Article::class,5)->create();
+        $articles = factory(Article::class, 5)->create();
 
-        $response = $this->json('GET','/api/v1/articles');
+        $response = $this->json('GET', '/api/v1/articles');
 
         $response->assertSuccessful();
 
@@ -46,7 +46,7 @@ class ApiArticleController extends TestCase
         $this->actingAs($user);
 
         $article = factory(Article::class)->create();
-        $response = $this->json('GET','/api/v1/articles/'.$article->id);
+        $response = $this->json('GET', '/api/v1/articles/'.$article->id);
 
         $response->assertSuccessful();
         $response->assertJsonStructure([
@@ -67,7 +67,7 @@ class ApiArticleController extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->json('GET','/api/v1/articles');
+        $response = $this->json('GET', '/api/v1/articles');
         // TODO comprovar es buit!
         $response->assertSuccessful();
     }
