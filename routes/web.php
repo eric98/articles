@@ -14,5 +14,5 @@ Route::group(['namespace' => "Ergare17\Articles\Http\Controllers", "middleware" 
     Route::get('/articles_alt/{id}', 'ArticleController@show1'); // 2 Retrieve -> recurs concret
 
 
-    Route::view('/articles','articles');
+    Route::view('/articles', 'articles');
 });
