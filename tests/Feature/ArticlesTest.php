@@ -28,7 +28,7 @@ class ArticlesTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
 
-        $articles = factory(Article::class,50)->create();
+        $articles = factory(Article::class, 50)->create();
 
         $response = $this->get('/articles');
         $response->assertStatus(200);
@@ -118,12 +118,12 @@ class ArticlesTest extends TestCase
         $this->actingAs($user);
         $article = factory(Article::class)->make();
         // Executo
-        $response = $this->post('/articles',[
+        $response = $this->post('/articles', [
             'title' => $article->title,
             'description' => $article->description
         ]);
-         //Comprovo
-        $this->assertDatabaseHas('articles',[
+        //Comprovo
+        $this->assertDatabaseHas('articles', [
             'title' => $article->title,
             'description' => $article->description,
         ]);
@@ -137,20 +137,20 @@ class ArticlesTest extends TestCase
         $article = factory(Article::class)->create();
         // Executo
         $newArticle = factory(Article::class)->make();
-        $response = $this->put('/articles/' . $article->id,[
+        $response = $this->put('/articles/' . $article->id, [
             'title' => $newArticle->title,
             'description' => $newArticle->description,
         ]);
         // Comprovo
         $response->assertRedirect('articles/edit/'.$article->id);
 
-        $this->assertDatabaseHas('articles',[
+        $this->assertDatabaseHas('articles', [
             'id' =>  $article->id,
             'title' => $newArticle->title,
             'description' => $newArticle->description,
         ]);
 
-        $this->assertDatabaseMissing('articles',[
+        $this->assertDatabaseMissing('articles', [
             'id' =>  $article->id,
             'title' => $article->title,
             'description' => $article->description,
@@ -168,7 +168,7 @@ class ArticlesTest extends TestCase
 //        $response = $this->delete('/articles/' . $article->id, [
 //            "csrf-token" => csrf_token()
 //        ]);
-        $response = $this->call('DELETE','/articles/' . $article->id);
+        $response = $this->call('DELETE', '/articles/' . $article->id);
 
         // Comprovo
         $this->assertDatabaseMissing('articles', [
@@ -178,7 +178,5 @@ class ArticlesTest extends TestCase
 
         $response->assertRedirect('articles');
 //        $response->assertSeeText('Deleted ok!');
-
-
     }
 }

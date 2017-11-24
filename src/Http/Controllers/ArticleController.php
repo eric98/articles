@@ -20,7 +20,7 @@ class ArticleController extends Controller
         // CRUD -> Retrieve --> List
         // BREAD -> Browse Read Edit Add Delete
         $articles = Article::all();
-        return view('articles::list_article',compact('articles'));
+        return view('articles::list_article', compact('articles'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ArticleController extends Controller
     {
 //        dump($artice->title);
 //        return view('show_article',compact('article'));
-        return view('articles::show_article',compact('article'));
+        return view('articles::show_article', compact('article'));
     }
 
     /**
@@ -91,7 +91,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles::edit_article',['article' => $article]);
+        return view('articles::edit_article', ['article' => $article]);
     }
 
     /**
