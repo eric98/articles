@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\User;
 use Ergare17\Articles\Models\Article;
+use Illuminate\Support\Facades\View;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -30,7 +31,7 @@ class ArticlesTest extends TestCase
 
         $articles = factory(Article::class, 50)->create();
 
-        $response = $this->get('/articles');
+        $response = $this->get('/articles_php');
         $response->assertStatus(200);
         $response->assertSuccessful();
         $response->assertViewIs('articles::list_article');
@@ -51,7 +52,7 @@ class ArticlesTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
         // Executo
-        $response = $this->get('/articles/'.$article->id);
+        $response = $this->get('/articles_php/'.$article->id);
         // Comprovo
         $response->assertStatus(200);
         $response->assertSuccessful();
@@ -72,7 +73,7 @@ class ArticlesTest extends TestCase
         // Executo
         $user = factory(User::class)->create();
         $this->actingAs($user);
-        $response = $this->get('/articles/999999');
+        $response = $this->get('/articles_php/999999');
         // Comprovo
         $response->assertStatus(404);
     }
@@ -85,7 +86,7 @@ class ArticlesTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
         // Executo
-        $response = $this->get('/articles/create');
+        $response = $this->get('/articles_php/create');
         // Comprovo
         $response->assertStatus(200);
         $response->assertViewIs('articles::create_article');
@@ -99,13 +100,13 @@ class ArticlesTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
         // Executo
-        $response = $this->get('/articles/edit/'.$article->id);
+        $response = $this->get('/articles_php/edit/'.$article->id);
         // Comprovo
         $response->assertStatus(200);
         $response->assertViewIs('articles::edit_article');
         $response->assertSeeText('Edit Article');
 
-        $responseFinal = $this->get('/articles/'.$article->id);
+        $responseFinal = $this->get('/articles_php/'.$article->id);
 
         $responseFinal->assertSeeText($article->title);
         $responseFinal->assertSeeText($article->description);
@@ -118,7 +119,7 @@ class ArticlesTest extends TestCase
         $this->actingAs($user);
         $article = factory(Article::class)->make();
         // Executo
-        $response = $this->post('/articles', [
+        $response = $this->post('/articles_php', [
             'title' => $article->title,
             'description' => $article->description
         ]);
@@ -137,12 +138,12 @@ class ArticlesTest extends TestCase
         $article = factory(Article::class)->create();
         // Executo
         $newArticle = factory(Article::class)->make();
-        $response = $this->put('/articles/' . $article->id, [
+        $response = $this->put('/articles_php/' . $article->id, [
             'title' => $newArticle->title,
             'description' => $newArticle->description,
         ]);
         // Comprovo
-        $response->assertRedirect('articles/edit/'.$article->id);
+        $response->assertRedirect('articles_php/edit/'.$article->id);
 
         $this->assertDatabaseHas('articles', [
             'id' =>  $article->id,
@@ -165,10 +166,10 @@ class ArticlesTest extends TestCase
         $article = factory(Article::class)->create();
 //        dump(Article::all()->count());
         // Executo
-//        $response = $this->delete('/articles/' . $article->id, [
+//        $response = $this->delete('/articles_php/' . $article->id, [
 //            "csrf-token" => csrf_token()
 //        ]);
-        $response = $this->call('DELETE', '/articles/' . $article->id);
+        $response = $this->call('DELETE', '/articles_php/' . $article->id);
 
         // Comprovo
         $this->assertDatabaseMissing('articles', [
@@ -176,7 +177,7 @@ class ArticlesTest extends TestCase
             'description' => $article->description
         ]);
 
-        $response->assertRedirect('articles');
+        $response->assertRedirect('articles_php');
 //        $response->assertSeeText('Deleted ok!');
     }
 }
