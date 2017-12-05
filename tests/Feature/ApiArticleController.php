@@ -26,7 +26,7 @@ class ApiArticleController extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
 
         $articles = factory(Article::class, 5)->create();
 
@@ -43,7 +43,7 @@ class ApiArticleController extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
 
         $article = factory(Article::class)->create();
         $response = $this->json('GET', '/api/v1/articles/'.$article->id);
@@ -65,7 +65,7 @@ class ApiArticleController extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
 
         $response = $this->json('GET', '/api/v1/articles');
         // TODO comprovar es buit!
