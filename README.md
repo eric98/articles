@@ -14,6 +14,7 @@
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![Dependency Status](https://www.versioneye.com/user/projects/5a1846480fb24f2125872a77/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a1846480fb24f2125872a77)
 
 Descripió del projecte
 
