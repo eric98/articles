@@ -26,7 +26,7 @@
                 <tr>
                     <th style="width: 10px">#</th>
                     <th style="width: 10px">Id</th>
-                    <th>Task</th>
+                    <th>Article</th>
                     <th>Description</th>
                     <th style="width: 200px">Actions</th>
                 </tr>
@@ -35,7 +35,7 @@
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $article->id}}</td>
-                        <td>{{ $article->name }}</td>
+                        <td>{{ $article->title }}</td>
                         <td>{{ $article->description }}</td>
                         <td>
                             <form action="/articles_php/{{ $article->id }}" method="POST">
