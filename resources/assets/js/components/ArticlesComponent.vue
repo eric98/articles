@@ -111,7 +111,7 @@
                                         <div class="modal-body">
                                             <ul>
                                                 <li>Id: {{ showedArticle.id }}</li>
-                                                <li>Name: {{ showedArticle.name }}</li>
+                                                <li>Name: {{ showedArticle.title }}</li>
                                                 <li id="show-description">Description: </li>
                                                 <li>Read: {{ showedArticle.read?'Yes':'No' }}</li>
                                                 <li>User_id: {{ showedArticle.user_id }}</li>
@@ -155,12 +155,12 @@
                     <!--<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">-->
                     <users @select="userSelected" id="user_id" name="user_id" v-model="form.user_id" :value="form.user_id"></users>
                 </div>
-                <div class="form-group has-feedback" :class="{ 'has-error': form.errors.has('name') }">
-                    <label for="name">Article name</label>
+                <div class="form-group has-feedback" :class="{ 'has-error': form.errors.has('title') }">
+                    <label for="title">Article title</label>
                     <transition name="fade">
-                        <span v-text="form.errors.get('name')" v-if="form.errors.has('name')" class="help-block"></span>
+                        <span v-text="form.errors.get('title')" v-if="form.errors.has('title')" class="help-block"></span>
                     </transition>
-                    <input @input="form.errors.clear('name')" class="form-control" type="text" v-model="form.name" id="name" name="name" @keyup.enter="addArticle">
+                    <input @input="form.errors.clear('title')" class="form-control" type="text" v-model="form.title" id="title" title="title" @keyup.enter="addArticle">
                 </div>
 
                 <div class="form-group has-feedback" :class="{ 'has-error': form.errors.has('description') }">
@@ -261,13 +261,13 @@
         filter: 'all',
         newTitle: '',
         newDescription: '',
-        name: '',
+        title: '',
         articles: [],
         users: [],
         creating: false,
         deleting: false,
         articleBeingDeleted: null,
-        form: new Form({user_id:'',name:'',description:''})
+        form: new Form({user_id:'',title:'',description:''})
       }
     },
     computed: {
@@ -363,7 +363,7 @@
         this.quillText = null
       },
       updateArticleBox(article,property,editedFinal){
-        if (property == 'name'){
+        if (property == 'title'){
           this.quillText = this.newTitle
         } else if (property == 'description'){
           this.quillText = this.newDescription
@@ -453,14 +453,14 @@
         }
         this.form.post(API_ARTICLES_URL).then(() => {
           var createdId
-          var createdName = this.form.name
+          var createdName = this.form.title
           var createdDescription = this.form.description
           var createdUserId = this.form.user_id
           crudArticle.getAll().then( response => {
             createdId = response.data[response.data.length-1].id
-            this.articles.push({id: createdId ,name: createdName, description: createdDescription, user_id: createdUserId, read: false})
+            this.articles.push({id: createdId ,title: createdName, description: createdDescription, user_id: createdUserId, read: false})
           })
-          this.form.name = ''
+          this.form.title = ''
           this.form.description = ''
           this.form.user_id = ''
         }).catch((error) => {
@@ -483,7 +483,7 @@
         })
       },
       updateNewTextQuill(text,property) {
-        if (property == 'name'){
+        if (property == 'title'){
           this.newTitle = text
         } else if (property == 'description'){
           this.newDescription = text
@@ -495,7 +495,7 @@
           idArticle=this.editedArticle
         } else if (this.editor =='medium-editor'){
           var newText = document.getElementById(property+'-'+article.id).innerHTML
-          if (property == 'name'){
+          if (property == 'title'){
             this.newTitle = newText
           } else if (property == 'description'){
             this.newDescription = newText
@@ -505,8 +505,8 @@
       },
       updateTitleArticle (article) {
         this.$emit('loading', true)
-        crudArticle.update(article.id, {name: this.newTitle}).then((response) =>  {
-          this.articles[this.articles.indexOf(article)].name = this.newTitle;
+        crudArticle.update(article.id, {title: this.newTitle}).then((response) =>  {
+          this.articles[this.articles.indexOf(article)].title = this.newTitle;
           this.newTitle = ''
           this.editedArticle = null
         }).catch((error) => {

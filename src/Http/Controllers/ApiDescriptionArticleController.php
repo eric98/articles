@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Ergare17\Articles\Http\Controllers;
 
-use App\Http\Requests\UpdateDescriptionArticle;
+use Ergare17\Articles\Http\Requests\UpdateDescriptionArticle;
 use Ergare17\Articles\Models\Article;
 
 class ApiDescriptionArticleController extends Controller

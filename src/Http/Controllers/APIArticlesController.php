@@ -41,10 +41,9 @@ class APIArticlesController extends Controller
     public function update(Request $request, Article $article)
     {
         $request->validate([
-            'title' => 'required', 'description'
+            'title' => 'required'
         ]);
         $article->title = $request->title;
-        $article->description = $request->description;
         $article->save();
         return $article;
     }

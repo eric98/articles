@@ -7,8 +7,8 @@ class Crud {
   getAll() {
     return axios.get(this.endPoint)
   }
-  update(id,newName) {
-    return axios.put(this.endPoint+id,newName)
+  update(id,newTitle) {
+    return axios.put(this.endPoint+id,newTitle)
   }
   destroy(id) {
     return axios.delete(this.endPoint+id)
