@@ -4,7 +4,9 @@ namespace Ergare17\Articles\Providers;
 
 use Ergare17\Articles\Console\Commands\CreateArticleCommand;
 use Ergare17\Articles\Console\Commands\DeleteArticleCommand;
+use Ergare17\Articles\Console\Commands\EditArticleCommand;
 use Ergare17\Articles\Console\Commands\ListArticlesCommand;
+use Ergare17\Articles\Console\Commands\ShowArticleCommand;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 
@@ -33,7 +35,9 @@ class ArticlesServiceProvider extends ServiceProvider
             $this->commands([
                 CreateArticleCommand::class,
                 ListArticlesCommand::class,
-                DeleteArticleCommand::class
+                DeleteArticleCommand::class,
+                ShowArticleCommand::class,
+                EditArticleCommand::class,
             ]);
         }
     }

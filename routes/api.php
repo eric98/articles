@@ -27,7 +27,17 @@ Route::group(['namespace' => "Ergare17\Articles\Http\Controllers",'middleware' =
         Route::put('/articles/{article}', 'APIArticlesController@update');
         Route::delete('/articles/{article}', 'APIArticlesController@destroy');
 
-        Route::post('/articles/{article}/read', 'APIArticlesController@read');
-        Route::post('/articles/{article}/unread', 'APIArticlesController@unread');
+        Route::post('read-article/{article}', 'ApiReadArticleController@store');
+        Route::delete('read-article/{article}', 'ApiReadArticleController@destroy');
+
+        Route::put('description-article/{article}', 'ApiDescriptionArticleController@update');
+
+        Route::put('user_id-article/{article}', 'ApiUserIdArticleController@update');
+
+        Route::get('users', 'ApiUserController@index');
+        Route::get('users/{user}', 'ApiUserController@show');
+        Route::post('users', 'ApiUserController@store');
+        Route::put('users/{user}', 'ApiUserController@update');
+        Route::delete('users/{user}', 'ApiUserController@destroy');
     });
 });

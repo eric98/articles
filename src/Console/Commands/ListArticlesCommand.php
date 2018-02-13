@@ -2,6 +2,7 @@
 
 namespace Ergare17\Articles\Console\Commands;
 
+use App\User;
 use Ergare17\Articles\Models\Article;
 use http\Exception;
 use Illuminate\Console\Command;
@@ -20,7 +21,7 @@ class ListArticlesCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'List articles';
 
     /**
      * Create a new command instance.
@@ -40,12 +41,23 @@ class ListArticlesCommand extends Command
     public function handle()
     {
         try {
-            $headers = ['id','Title','Description'];
+            $articles = Article::all();
 
-            $users = Article::all(['id','title','description'])->toArray();
+            $headers = ['id', 'Title','Description', 'Read', 'User id', 'User Name'];
+            $fields = [];
+            foreach ($articles as $article) {
+                $fields[] = [
+                    'id:'               => $article->id,
+                    'Title:'             => $article->title,
+                    'Description:' => $article->description,
+                    'Read:'        => $article->read ? 'Yes' : 'No',
+                    'User id:'          => $article->user_id,
+                    'User name:'        => User::findOrFail($article->user_id)->name,
+                ];
+            }
         } catch (Exception $e) {
             $this->error('Error');
         }
-        $this->table($headers, $users);
+        $this->table($headers, $fields);
     }
 }

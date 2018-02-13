@@ -2,12 +2,13 @@
 
 namespace Ergare17\Articles\Console\Commands;
 
+use App\User;
 use Ergare17\Articles\Console\Commands\Traits\AsksForArticles;
 use Ergare17\Articles\Models\Article;
-use http\Exception;
 use Illuminate\Console\Command;
+use Mockery\Exception;
 
-class DeleteArticleCommand extends Command
+class ShowArticleCommand extends Command
 {
     use AsksForArticles;
 
@@ -16,14 +17,14 @@ class DeleteArticleCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'article:delete {id? : The article id}';
+    protected $signature = 'article:show {id? : The article id to show}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Delete an article';
+    protected $description = 'Show an articl';
 
     /**
      * Create a new command instance.
@@ -42,13 +43,24 @@ class DeleteArticleCommand extends Command
      */
     public function handle()
     {
+        $id = $this->argument('id') ? $this->argument('id') : $this->askForArticles();
+        $article = Article::findOrFail($id);
+        $user = User::findOrFail($article->user_id);
+
         try {
-            $id = $this->argument('id') ? $this->argument('id') : $this->askForArticles();
-            $article = Article::findOrFail($id);
-            $article->delete();
+            $headers = ['Key', 'Value'];
+
+            $fields = [
+                ['Title:', $article->title],
+                ['Description', $article->description],
+                ['Read:', $article->read ? 'Yes' : 'No'],
+                ['User id:', $article->user_id],
+                ['User name:', $user->name],
+            ];
+
+            $this->table($headers, $fields);
         } catch (Exception $e) {
             $this->error('Error');
         }
-        $this->info('Article has been deleted to database succesfully');
     }
 }

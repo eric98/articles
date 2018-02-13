@@ -2,18 +2,11 @@
 
 namespace Ergare17\Articles\Http\Requests;
 
-use Acacha\Events\Http\Requests\Traits\ChecksPermissions;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-/**
- * Class ShowArticle
- *
- * @package App\Http\Requests
- */
-class ShowArticle extends FormRequest
+class UpdateUserIdArticle extends FormRequest
 {
-    use ChecksPermissions;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -21,9 +14,7 @@ class ShowArticle extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('show-articles')) return true;
-        if ($this->owns('article')) return true;
-        return false;
+        return Auth::user()->hasPermissionTo('update-user_id-articles');
     }
 
     /**
@@ -33,6 +24,8 @@ class ShowArticle extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'user_id'               => 'required'
+        ];
     }
 }

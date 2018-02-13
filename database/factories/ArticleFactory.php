@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Ergare17\Articles\Models\Article;
 use Faker\Generator as Faker;
 
@@ -18,5 +19,7 @@ $factory->define(Article::class, function (Faker $faker) {
     return [
         'title' => $faker->word,
         'description' => $faker->paragraph,
+        'user_id' => factory(User::class)->create()->id,
+        'read' => false
     ];
 });
