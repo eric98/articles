@@ -438,7 +438,7 @@
       showUserName(article){
         var username
         this.users.filter(function(user){
-          if (user.id == article.id){
+          if (user.id == article.user_id){
             username = user.name
           }
         })
