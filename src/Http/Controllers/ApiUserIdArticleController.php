@@ -7,14 +7,14 @@ use Ergare17\Articles\Models\Article;
 
 class ApiUserIdArticleController extends Controller
 {
-    public function update(UpdateUserIdArticle $request, Article $task)
+    public function update(UpdateUserIdArticle $request, Article $article)
     {
         $request->validate([
             'user_id' => 'required',
         ]);
-        $task->user_id = $request->user_id;
-        $task->save();
+        $article->user_id = $request->user_id;
+        $article->save();
 
-        return $task;
+        return $article;
     }
 }
