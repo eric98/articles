@@ -82,12 +82,7 @@ class ApiAttendedArticleControllerTest extends TestCase
         $this->loginAsManager($user, 'api');
 
         $article = factory(Article::class)->create();
-
-<<<<<<< HEAD:tests/Feature/ApiReadArticleControllerTest.php
         $response = $this->json('DELETE','/api/v1/read-article/' . $article->id);
-=======
-        $response = $this->json('DELETE', '/api/v1/attended-articles/' . $article->id);
->>>>>>> c6a631aeb4fd6aaf8225f2fcfbb4e2bc823a5e6b:tests/Feature/ApiAttendedArticleControllerTest.php
 
         $response->assertSuccessful();
 
