@@ -22,7 +22,7 @@ class ApiUserControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        initialize_events_permissions();
+        initialize_articles_permissions();
 //        $this->withoutExceptionHandling();
     }
 
@@ -96,60 +96,6 @@ class ApiUserControllerTest extends TestCase
         ]);
 
         $response->assertStatus(401);
-    }
-
-    /**
-     * Cannot add user with already existing email
-     *
-     * @test
-     */
-    public function cannot_add_user_with_already_existing_email()
-    {
-        $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
-
-        $response = $this->json('POST', '/api/v1/users',[
-            'name' => 'Pepe',
-            'email' => $user->email
-        ]);
-
-        $response->assertStatus(422);
-
-        $response->assertJson([
-            'message' => 'The given data was invalid.',
-            'errors' => [
-                'email' => [
-                    0 => 'The email has already been taken.'
-                ]
-            ]
-        ]);
-    }
-
-    /**
-     * Cannot add user with invalid email
-     *
-     * @test
-     */
-    public function cannot_add_user_with_invalid_email()
-    {
-        $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
-
-        $response = $this->json('POST', '/api/v1/users',[
-            'name' => 'Pepe',
-            'email' => 'asdasdsadasd'
-        ]);
-
-        $response->assertStatus(422);
-
-        $response->assertJson([
-            'message' => 'The given data was invalid.',
-            'errors' => [
-                'email' => [
-                    0 => 'The email must be a valid email address.'
-                ]
-            ]
-        ]);
     }
 
     /**

@@ -112,24 +112,6 @@ class ArticlesTest extends TestCase
         $responseFinal->assertSeeText($article->description);
     }
 
-    public function testStoreArticleForm()
-    {
-        // Preparo
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
-        $article = factory(Article::class)->make();
-        // Executo
-        $response = $this->post('/articles_php', [
-            'title' => $article->title,
-            'description' => $article->description
-        ]);
-        //Comprovo
-        $this->assertDatabaseHas('articles', [
-            'title' => $article->title,
-            'description' => $article->description,
-        ]);
-    }
-
     public function testUpdateArticleForm()
     {
         // Preparo

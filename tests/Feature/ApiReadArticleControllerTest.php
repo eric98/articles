@@ -50,24 +50,24 @@ class APIAttendedArticleControllerTest extends TestCase
         $this->loginAsManager($user,'api');
         $article = factory(Article::class)->create();
 
-        $response = $this->json('POST', '/api/v1/attended-articles/' . $article->id);
+        $response = $this->json('POST', '/api/v1/read-article/' . $article->id);
 
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('articles', [
             'id' => $article->id,
-            'name' => $article->name,
-            'attend' => true,
+            'title' => $article->title,
+            'read' => true,
             'description' => $article->description,
-            'user_id' => $article->user->id
+            'user_id' => $article->user_id
         ]);
 
         $response->assertJson([
             'id' => $article->id,
-            'name' => $article->name,
-            'attend' => true,
+            'title' => $article->title,
+            'read' => true,
             'description' => $article->description,
-            'user_id' => $article->user->id
+            'user_id' => $article->user_id
         ]);
     }
 
@@ -76,36 +76,36 @@ class APIAttendedArticleControllerTest extends TestCase
      *
      * @test
      */
-    protected function destroy()
+    public function destroy()
     {
         $user = factory(User::class)->create();
         $this->loginAsManager($user,'api');
 
         $article = factory(Article::class)->create();
 
-        $response = $this->json('DELETE','/api/v1/attended-articles/' . $article->id);
+        $response = $this->json('DELETE','/api/v1/read-article/' . $article->id);
 
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('articles', [
             'id' => $article->id,
-            'name' => $article->name,
-            'attend' => false,
+            'title' => $article->title,
+            'read' => false,
             'description' => $article->description,
-            'user_id' => $article->user->id
+            'user_id' => $article->user_id
         ]);
 
         $response->assertJson([
             'id' => $article->id,
-            'name' => $article->name,
-            'attend' => false,
+            'title' => $article->title,
+            'read' => false,
             'description' => $article->description,
-            'user_id' => $article->user->id
+            'user_id' => $article->user_id
         ]);
 
         $response->assertJson([
             'id' => $article->id,
-            'name' => $article->name
+            'title' => $article->title
         ]);
     }
 
