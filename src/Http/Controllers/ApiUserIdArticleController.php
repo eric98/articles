@@ -12,8 +12,6 @@ class ApiUserIdArticleController extends Controller
         $request->validate([
             'user_id' => 'required',
         ]);
-        dd('article->user_id: '.$article->user_id);
-        dd('request->user_id: '.$request->user_id);
         $article->user_id = $request->user_id;
         $article->save();
 
