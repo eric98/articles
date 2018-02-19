@@ -21,8 +21,12 @@ class ShowUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('show-user')) return true;
-        if ($this->owns('user','id')) return true;
+        if ($this->hasPermissionTo('show-user')) {
+            return true;
+        }
+        if ($this->owns('user', 'id')) {
+            return true;
+        }
         return false;
     }
 

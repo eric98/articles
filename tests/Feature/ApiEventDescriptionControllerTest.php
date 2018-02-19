@@ -12,7 +12,7 @@ use Tests\TestCase;
  *
  * @package Tests\Feature
  */
-class APIAttendedEventControllerTest extends TestCase
+class ApiEventDescriptionControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -36,7 +36,7 @@ class APIAttendedEventControllerTest extends TestCase
     protected function loginAsManager($user, $driver = 'api')
     {
         $user->assignRole(self::MANAGER);
-        $this->actingAs($user,$driver);
+        $this->actingAs($user, $driver);
     }
 
     /**
@@ -47,10 +47,10 @@ class APIAttendedEventControllerTest extends TestCase
     public function update()
     {
         $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
         $event = factory(Event::class)->create();
 
-        $response = $this->json('PUT', '/api/v1/events/' . $event->id . '/description',[
+        $response = $this->json('PUT', '/api/v1/events/' . $event->id . '/description', [
             'description' => 'new description'
         ]);
 
@@ -72,5 +72,4 @@ class APIAttendedEventControllerTest extends TestCase
             'user_id' => $event->user->id
         ]);
     }
-
 }

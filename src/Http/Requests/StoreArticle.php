@@ -22,8 +22,12 @@ class StoreArticle extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('store-articles')) return true;
-        if (Auth::user()->id === $this->user_id) return true;
+        if ($this->hasPermissionTo('store-articles')) {
+            return true;
+        }
+        if (Auth::user()->id === $this->user_id) {
+            return true;
+        }
         return false;
     }
 

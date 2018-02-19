@@ -32,18 +32,19 @@ class ApiUserEventControllerTest extends TestCase
      *
      * @test
      */
-    public function user_can_see_owned_events() {
+    public function user_can_see_owned_events()
+    {
         $user = factory(User::class)->create();
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
-        factory(Event::class,3)->create([
+        factory(Event::class, 3)->create([
             'user_id' => $user->id
         ]);
 
-        $response = $this->json('GET','/api/v1/user/events');
+        $response = $this->json('GET', '/api/v1/user/events');
         $response->assertSuccessful();
 
-        $this->assertCount(3,json_decode($response->getContent()));
+        $this->assertCount(3, json_decode($response->getContent()));
         $response->assertJsonStructure([[
             'id',
             'name',
@@ -59,11 +60,12 @@ class ApiUserEventControllerTest extends TestCase
      *
      * @test
      */
-    public function user_can_create_owned_event() {
+    public function user_can_create_owned_event()
+    {
         $user = factory(User::class)->create();
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
-        $response = $this->json('POST','/api/v1/user/events',[
+        $response = $this->json('POST', '/api/v1/user/events', [
             'name' => 'Pool Party',
             'description' => 'So cool!',
             'user_id' => $user->id
@@ -76,10 +78,11 @@ class ApiUserEventControllerTest extends TestCase
      *
      * @test
      */
-    public function user_can_show_owned_event() {
+    public function user_can_show_owned_event()
+    {
         $event = factory(Event::class)->create();
 
-        $this->actingAs($event->user,'api');
+        $this->actingAs($event->user, 'api');
 
         $response = $this->json('GET', '/api/v1/events/' . $event->id);
 
@@ -99,10 +102,11 @@ class ApiUserEventControllerTest extends TestCase
      *
      * @test
      */
-    public function user_can_update_owned_event() {
+    public function user_can_update_owned_event()
+    {
         $event = factory(Event::class)->create();
 
-        $this->actingAs($event->user,'api');
+        $this->actingAs($event->user, 'api');
 
         $response = $this->json('PUT', '/api/v1/events/' . $event->id, [
             'name' => $newName = 'NOU NOM'
@@ -131,16 +135,17 @@ class ApiUserEventControllerTest extends TestCase
      *
      * @test
      */
-    public function user_can_destroy_owned_event() {
+    public function user_can_destroy_owned_event()
+    {
         $event = factory(Event::class)->create();
 
-        $this->actingAs($event->user,'api');
+        $this->actingAs($event->user, 'api');
 
-        $response = $this->json('DELETE','/api/v1/events/' . $event->id);
+        $response = $this->json('DELETE', '/api/v1/events/' . $event->id);
 
         $response->assertSuccessful();
 
-        $this->assertDatabaseMissing('events',[
+        $this->assertDatabaseMissing('events', [
             'id' =>  $event->id
         ]);
 
@@ -149,5 +154,4 @@ class ApiUserEventControllerTest extends TestCase
             'name' => $event->name
         ]);
     }
-
 }

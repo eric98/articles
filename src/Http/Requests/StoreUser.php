@@ -21,7 +21,9 @@ class StoreUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('store-user')) return true;
+        if ($this->hasPermissionTo('store-user')) {
+            return true;
+        }
         return false;
     }
 

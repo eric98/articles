@@ -21,8 +21,12 @@ class DestroyArticle extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('destroy-articles')) return true;
-        if ($this->owns('article')) return true;
+        if ($this->hasPermissionTo('destroy-articles')) {
+            return true;
+        }
+        if ($this->owns('article')) {
+            return true;
+        }
         return false;
     }
 

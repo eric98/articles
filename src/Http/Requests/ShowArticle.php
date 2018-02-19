@@ -21,8 +21,12 @@ class ShowArticle extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('show-articles')) return true;
-        if ($this->owns('article')) return true;
+        if ($this->hasPermissionTo('show-articles')) {
+            return true;
+        }
+        if ($this->owns('article')) {
+            return true;
+        }
         return false;
     }
 

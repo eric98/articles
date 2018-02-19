@@ -27,7 +27,7 @@ class APIAuthorizedURLsTest extends TestCase
         factory(User::class)->create();
         factory(Event::class)->create();
         initialize_events_permissions();
-        $this->actingAs( $user,'api');
+        $this->actingAs($user, 'api');
 //        $this->withoutExceptionHandling();
     }
 
@@ -58,10 +58,9 @@ class APIAuthorizedURLsTest extends TestCase
      * @test
      * @dataProvider authorizatedURIs
      */
-    public function uri_requires_authorizated_user($method , $uri)
+    public function uri_requires_authorizated_user($method, $uri)
     {
         $response = $this->json($method, $uri);
         $response->assertStatus(403);
     }
-
 }

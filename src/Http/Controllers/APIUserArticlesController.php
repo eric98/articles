@@ -33,5 +33,4 @@ class APIUserArticlesController extends Controller
         Auth::user()->articles()->save($article);
         return $article;
     }
-
 }

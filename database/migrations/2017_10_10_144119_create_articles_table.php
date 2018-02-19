@@ -21,7 +21,8 @@ class CreateArticlesTable extends Migration
             $table->boolean('read')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            ;
         });
     }
 
