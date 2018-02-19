@@ -12,7 +12,7 @@ use Tests\TestCase;
  *
  * @package Tests\Feature
  */
-class ApiAttendedArticleControllerTest extends TestCase
+class ApiReadArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -82,7 +82,7 @@ class ApiAttendedArticleControllerTest extends TestCase
         $this->loginAsManager($user, 'api');
 
         $article = factory(Article::class)->create();
-        $response = $this->json('DELETE','/api/v1/read-article/' . $article->id);
+        $response = $this->json('DELETE', '/api/v1/read-article/' . $article->id);
 
         $response->assertSuccessful();
 
