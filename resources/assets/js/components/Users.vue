@@ -1,6 +1,6 @@
 <template>
     <div>
-      <multiselect :id="id" :name="name" v-model="user" :options="users" :custom-label="customLabel"></multiselect>
+      <multiselect @select="select" :id="id" :name="name" v-model="user" :options="users" :custom-label="customLabel"></multiselect>
     </div>
 </template>
 
@@ -32,8 +32,13 @@
       },
       customLabel1( user ) {
         return `${user.name} — ${user.email}`
+      },
+      select() {
+        console.log('SELECT!!!!!!!!!!!!!!')
+        this.$emit('select')
       }
     },
+
     mounted() {
       axios.get('/api/v1/users').then( response => {
         this.users = response.data

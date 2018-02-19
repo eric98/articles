@@ -2,7 +2,7 @@
     <div>
         <widget :loading="loading">
             <button type="button" class="btn btn-success" @click="setEditorRadioButtonChecked()" data-backdrop="static" data-toggle="modal" data-target="#modal-options"><span class="glyphicon glyphicon-cog"></span></button>
-            <button type="button" class="btn btn-warning" id="reload" @click="reloadPage()">Reload page</button>
+            <button type="button" class="btn btn-warning" id="reload" @click="reload()">Reload articles</button>
             <div class="modal fade" id="modal-options">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -90,7 +90,18 @@
                             <medium-editor v-bind:id="'description-'+article.id" v-else-if="editor == 'medium-editor'" class="description" :text='article.description' v-on:edit='updateDescriptionArticle(article)'></medium-editor>
                         </td>
                         <td>
-                            {{ showUserName(article) }}
+                            <div v-if="editingUserId!=article.id">
+                                <button type="button" class="btn btn-warning" @click="editArticleUserId(article)"><span class="fa fa-pencil"></span></button>
+                                {{ showUserName(article) }}
+                            </div>
+                            <div v-else="editingUserId!=article.id">
+                                <button type="button" class="btn btn-success" @click="updateUserIdArticle(article); cancelEdit();"><span class="fa fa-check"></span></button>
+                                <button type="button" class="btn btn-danger" @click="cancelEdit()"><span class="fa fa-times"></span></button>
+                                <users @select="userEditedSelected" v-model="article.user_id" :value="newUserId"></users>
+                            </div>
+                            <div v-else v-bind:id="'userName-'+article.id" @dblclick="editArticleName(article)">
+                                {{ showUserName(article) }}
+                            </div>
                         </td>
                         <td>
                             <a class="pull-right" data-toggle="tooltip" :title="article.created_at" v-text="human(article.created_at)"></a>
@@ -106,7 +117,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h2 v-if="deleting">Esteu segur de borrar aquesta tasca? </h2>
+                                            <h2 v-if="deleting">Esteu segur de borrar aquest article? </h2>
                                         </div>
                                         <div class="modal-body">
                                             <ul>
@@ -129,7 +140,7 @@
                                             </div>
                                             <div v-else="!deleting">
                                                 <button id="cancel-delete-article" @click="cancelShow()" type="button" class="btn btn-success pull-left" data-dismiss="modal">NO</button>
-                                                <button id="destroy-article" class="btn btn-danger" type="button" @click="deleteArticle(showedArticle);cancelShow()"><span>SI</span></button>
+                                                <button id="destroy-article" class="btn btn-danger" type="button" @click="deleteArticle(showedArticle);cancelShow()" data-dismiss="modal"><span>SI</span></button>
                                             </div>
                                         </div>
                                     </div>
@@ -241,11 +252,13 @@
 
   import createApiArticle from './articles/api/articles';
   import createApiDescriptionArticle from './articles/api/descriptionArticles';
+  import createApiUserIdArticle from './articles/api/userIdArticles';
   import createApiReadArticle from './articles/api/readArticles';
   import createApiUsers from './articles/api/users';
 
   const crudArticle = createApiArticle(API_ARTICLES_URL);
   const crudArticleDescription = createApiDescriptionArticle(API_URL+'description-article/');
+  const crudArticleUserId = createApiUserIdArticle(API_URL+'user_id-article/');
   const crudArticleRead = createApiReadArticle(API_URL+'read-article/');
   const crudUsers = createApiUsers(API_URL+'users/');
 
@@ -256,11 +269,13 @@
         showedArticle:'',
         showedArticleUserName:'',
         quillText: '',
-        loading: false,
+        loading: true,
         editedArticle: null,
+        editingUserId: false,
         filter: 'all',
         newTitle: '',
         newDescription: '',
+        newUserId: '',
         title: '',
         articles: [],
         users: [],
@@ -292,7 +307,12 @@
         return moment(date).fromNow()
       },
       userSelected(user) {
+        console.log('hola prova')
         this.form.user_id = user.id
+      },
+      userEditedSelected(user) {
+        console.log('hola prova')
+        this.newUserId = user.id
       },
       show(filter) {
         this.filter = filter
@@ -314,8 +334,9 @@
           }
         }
       },
-      reloadPage(){
-        window.location.reload()
+      reload(){
+        this.articles = []
+        this.fetchArticles()
       },
       isLastArticleFiltered(article){
         var length = this.filteredArticles.length
@@ -358,6 +379,7 @@
       },
       cancelEdit(){
         this.editedArticle = null
+        this.editingUserId = false
         this.newDescription = null
         this.newTitle = null
         this.quillText = null
@@ -445,7 +467,7 @@
         this.deleting = true
       },
       addArticle () {
-        this.$emit('loading', true)
+        this.loading = true
         this.creating = true
         if (config.editor == 'medium-editor') {
           console.log(document.getElementById("description").innerHTML)
@@ -467,11 +489,11 @@
           flash(error.message)
         }).then(() => {
           this.creating = false
-          this.$emit('loading', false)
+          this.loading = false
         })
       },
       deleteArticle (article) {
-        this.$emit('loading', true)
+        this.loading = true
         this.articleBeingDeleted = article.id
         crudArticle.destroy(article.id).then(() => {
           this.articles.splice(this.articles.indexOf(article), 1)
@@ -479,7 +501,7 @@
           flash(error.message)
         }).then(() => {
           this.articleBeingDeleted = null
-          this.$emit('loading', false)
+          this.loading = false
         })
       },
       updateNewTextQuill(text,property) {
@@ -504,7 +526,7 @@
         return idArticle
       },
       updateTitleArticle (article) {
-        this.$emit('loading', true)
+        this.loading = true
         crudArticle.update(article.id, {title: this.newTitle}).then((response) =>  {
           this.articles[this.articles.indexOf(article)].title = this.newTitle;
           this.newTitle = ''
@@ -512,7 +534,17 @@
         }).catch((error) => {
           flash(error.message)
         }).then(() => {
-          this.$emit('loading', false)
+          this.loading = false
+        })
+      },
+      updateUserIdArticle(article) {
+        this.loading = true
+        crudArticleUserId.update(article.id, {user_id: this.newUserId }).then((response) =>  {
+          this.articles[this.articles.indexOf(article)].user_id = this.newUserId;
+        }).catch((error) => {
+          flash(error.message)
+        }).then(() => {
+          this.loading = false
         })
       },
       updateDescriptionArticle(article) {
@@ -520,16 +552,19 @@
         if (this.newDescription.startsWith('<p>') && this.newDescription.endsWith('</p>')){
           this.newDescription = this.newDescription.substring(3,this.newDescription.length-4)
         }
-        this.$emit('loading', true)
+        this.loading = true
         crudArticleDescription.update(idArticle, {description: this.newDescription }).catch((error) => {
           flash(error.message)
         }).then(() => {
-          this.$emit('loading', false)
+          this.loading = false
         })
       },
       editArticleName (article) {
         this.editedArticle = article
         this.newTitle = article.title
+      },
+      editArticleUserId (article) {
+        this.editingUserId = article.id
       },
       editArticleDescription(article){
         this.editedArticle = article.id
@@ -537,48 +572,50 @@
         this.quillText = article.description
       },
       readArticle(article){
-        this.$emit('loading', true)
+        this.loading = true
         crudArticleRead.store(article.id).then((response) => {
         }).catch((error) => {
           flash(error.message)
         }).then(() => {
-          this.$emit('loading', false)
+          this.loading = false
         })
       },
       unreadArticle(article){
-        this.$emit('loading', true)
+        this.loading = true
         crudArticleRead.destroy(article.id).then((response) => {
         }).catch((error) => {
           flash(error.message)
         }).then(() => {
-          this.$emit('loading', false)
+          this.loading = false
         }).then(
           this.articleBeingDeleted = null
         )
       },
       fetchArticles(){
-        this.$emit('loading', true)
+        this.loading = true
         crudArticle.getAll().then( response => {
           this.articles = response.data
         }).catch( error => {
           console.log(error)
         }).then(() => {
-          this.$emit('loading', false)
+          this.loading = false
         })
       },
       fetchUsers(){
-        this.$emit('loading', true)
+        this.loading = true
         crudUsers.getAll().then((response) => {
           this.users = response.data
         }).catch((error) => {
           console.log(error)
           flash(error.message)
         }).then(() => {
-          this.$emit('loading', false)
+          this.loading = false
         })
       }
     },
     mounted () {
+      this.loading = true
+      console.log('loading: '+this.loading)
       new MediumEditor('.editable');
       this.fetchArticles();
       this.fetchUsers();
