@@ -5,7 +5,8 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 if (!function_exists('assignPermission')) {
-    function assignPermission($role, $permission) {
+    function assignPermission($role, $permission)
+    {
         if (! $role->hasPermissionTo($permission)) {
             $role->givePermissionTo($permission);
         }
@@ -30,16 +31,16 @@ if (!function_exists('initialize_articles_permissions')) {
 
         $role = Role::firstOrCreate(['name' => 'articles-manager']);
 
-        assignPermission($role,'list-articles');
-        assignPermission($role,'show-articles');
-        assignPermission($role,'store-articles');
-        assignPermission($role,'update-articles');
-        assignPermission($role,'destroy-articles');
+        assignPermission($role, 'list-articles');
+        assignPermission($role, 'show-articles');
+        assignPermission($role, 'store-articles');
+        assignPermission($role, 'update-articles');
+        assignPermission($role, 'destroy-articles');
 
-        assignPermission($role,'store-read-articles');
-        assignPermission($role,'destroy-read-articles');
-        assignPermission($role,'update-description-articles');
-        assignPermission($role,'update-user_id-articles');
+        assignPermission($role, 'store-read-articles');
+        assignPermission($role, 'destroy-read-articles');
+        assignPermission($role, 'update-description-articles');
+        assignPermission($role, 'update-user_id-articles');
 
         Permission::firstOrCreate(['name' => 'list-users']);
         Permission::firstOrCreate(['name' => 'show-user']);
@@ -49,11 +50,11 @@ if (!function_exists('initialize_articles_permissions')) {
 
         $role = Role::firstOrCreate(['name' => 'users-manager']);
 
-        assignPermission($role,'list-users');
-        assignPermission($role,'show-user');
-        assignPermission($role,'store-user');
-        assignPermission($role,'update-user');
-        assignPermission($role,'destroy-user');
+        assignPermission($role, 'list-users');
+        assignPermission($role, 'show-user');
+        assignPermission($role, 'store-user');
+        assignPermission($role, 'update-user');
+        assignPermission($role, 'destroy-user');
     }
 }
 

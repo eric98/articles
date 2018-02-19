@@ -21,7 +21,9 @@ class ListArticle extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('list-articles')) return true;
+        if ($this->hasPermissionTo('list-articles')) {
+            return true;
+        }
         return false;
     }
 

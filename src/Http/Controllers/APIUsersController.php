@@ -63,7 +63,7 @@ class APIUsersController extends Controller
      */
     public function update(UpdateUser $request, User $user)
     {
-        $user->update($request->only('name',''));
+        $user->update($request->only('name', ''));
         $user->save();
         return $user;
     }
@@ -80,5 +80,4 @@ class APIUsersController extends Controller
         $user->delete();
         return $user;
     }
-
 }

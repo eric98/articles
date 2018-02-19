@@ -33,10 +33,10 @@ class ApiUserControllerTest extends TestCase
      */
     public function can_list_users()
     {
-        factory(User::class,3)->create();
+        factory(User::class, 3)->create();
 
         $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
         $response = $this->json('GET', '/api/v1/users');
 
@@ -62,7 +62,7 @@ class ApiUserControllerTest extends TestCase
         $user = factory(User::class)->create();
 
         $loggedUser = factory(User::class)->create();
-        $this->loginAsManager($loggedUser,'api');
+        $this->loginAsManager($loggedUser, 'api');
 
         $response = $this->json('GET', '/api/v1/users/' . $user->id);
 
@@ -106,9 +106,9 @@ class ApiUserControllerTest extends TestCase
     public function cannot_add_user_with_already_existing_email()
     {
         $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
-        $response = $this->json('POST', '/api/v1/users',[
+        $response = $this->json('POST', '/api/v1/users', [
             'name' => 'Pepe',
             'email' => $user->email
         ]);
@@ -133,9 +133,9 @@ class ApiUserControllerTest extends TestCase
     public function cannot_add_user_with_invalid_email()
     {
         $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
-        $response = $this->json('POST', '/api/v1/users',[
+        $response = $this->json('POST', '/api/v1/users', [
             'name' => 'Pepe',
             'email' => 'asdasdsadasd'
         ]);
@@ -160,7 +160,7 @@ class ApiUserControllerTest extends TestCase
     public function cannot_add_user_if_no_name_provided()
     {
         $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
         $response = $this->json('POST', '/api/v1/users');
 
@@ -188,7 +188,7 @@ class ApiUserControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
         $response = $this->json('POST', '/api/v1/users', [
             'name' => 'Sergi Tur Badenas',
@@ -224,14 +224,14 @@ class ApiUserControllerTest extends TestCase
         $user = factory(User::class)->create();
         $otherUser = factory(User::class)->create();
 
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
 
-        $response = $this->json('DELETE','/api/v1/users/' . $otherUser->id);
+        $response = $this->json('DELETE', '/api/v1/users/' . $otherUser->id);
 
         $response->assertSuccessful();
 
-        $this->assertDatabaseMissing('users',[
+        $this->assertDatabaseMissing('users', [
            'id' =>  $otherUser->id
         ]);
 
@@ -249,7 +249,7 @@ class ApiUserControllerTest extends TestCase
     protected function loginAsManager($user, $driver = 'api')
     {
         $user->assignRole('users-manager');
-        $this->actingAs($user,$driver);
+        $this->actingAs($user, $driver);
     }
 
     /**
@@ -261,9 +261,9 @@ class ApiUserControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
-        $response = $this->json('DELETE','/api/v1/users/2');
+        $response = $this->json('DELETE', '/api/v1/users/2');
 
         $response->assertStatus(404);
     }
@@ -278,7 +278,7 @@ class ApiUserControllerTest extends TestCase
         $user = factory(User::class)->create();
         $otherUser = factory(User::class)->create();
 
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
         $response = $this->json('PUT', '/api/v1/users/' . $otherUser->id, [
             'name' => $newName = 'NOU NOM'
@@ -301,5 +301,4 @@ class ApiUserControllerTest extends TestCase
             'name' => $newName
         ]);
     }
-
 }

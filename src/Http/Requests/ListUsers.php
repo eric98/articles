@@ -21,7 +21,9 @@ class ListUsers extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('list-users')) return true;
+        if ($this->hasPermissionTo('list-users')) {
+            return true;
+        }
         return false;
     }
 
