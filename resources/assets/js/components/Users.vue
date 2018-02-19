@@ -33,10 +33,9 @@
       customLabel1( user ) {
         return `${user.name} — ${user.email}`
       },
-      select() {
-        console.log('SELECT!!!!!!!!!!!!!!')
-        this.$emit('select')
-      }
+      select(user) {
+        this.$emit('select',user)
+      },
     },
 
     mounted() {

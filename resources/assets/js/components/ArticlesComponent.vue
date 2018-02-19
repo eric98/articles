@@ -307,11 +307,9 @@
         return moment(date).fromNow()
       },
       userSelected(user) {
-        console.log('hola prova')
         this.form.user_id = user.id
       },
       userEditedSelected(user) {
-        console.log('hola prova')
         this.newUserId = user.id
       },
       show(filter) {
@@ -470,7 +468,6 @@
         this.loading = true
         this.creating = true
         if (config.editor == 'medium-editor') {
-          console.log(document.getElementById("description").innerHTML)
           this.form.description = document.getElementById("description").innerHTML
         }
         this.form.post(API_ARTICLES_URL).then(() => {
@@ -478,6 +475,7 @@
           var createdName = this.form.title
           var createdDescription = this.form.description
           var createdUserId = this.form.user_id
+          console.log('user_id: ',createdUserId)
           crudArticle.getAll().then( response => {
             createdId = response.data[response.data.length-1].id
             this.articles.push({id: createdId ,title: createdName, description: createdDescription, user_id: createdUserId, read: false})
