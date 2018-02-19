@@ -12,7 +12,7 @@ use Tests\TestCase;
  *
  * @package Tests\Feature
  */
-class APIAttendedArticleControllerTest extends TestCase
+class ApiAttendedArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -36,7 +36,7 @@ class APIAttendedArticleControllerTest extends TestCase
     protected function loginAsManager($user, $driver = 'api')
     {
         $user->assignRole(self::MANAGER);
-        $this->actingAs($user,$driver);
+        $this->actingAs($user, $driver);
     }
 
     /**
@@ -47,7 +47,7 @@ class APIAttendedArticleControllerTest extends TestCase
     public function store()
     {
         $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
         $article = factory(Article::class)->create();
 
         $response = $this->json('POST', '/api/v1/read-article/' . $article->id);
@@ -79,11 +79,15 @@ class APIAttendedArticleControllerTest extends TestCase
     public function destroy()
     {
         $user = factory(User::class)->create();
-        $this->loginAsManager($user,'api');
+        $this->loginAsManager($user, 'api');
 
         $article = factory(Article::class)->create();
 
+<<<<<<< HEAD:tests/Feature/ApiReadArticleControllerTest.php
         $response = $this->json('DELETE','/api/v1/read-article/' . $article->id);
+=======
+        $response = $this->json('DELETE', '/api/v1/attended-articles/' . $article->id);
+>>>>>>> c6a631aeb4fd6aaf8225f2fcfbb4e2bc823a5e6b:tests/Feature/ApiAttendedArticleControllerTest.php
 
         $response->assertSuccessful();
 
@@ -108,5 +112,4 @@ class APIAttendedArticleControllerTest extends TestCase
             'title' => $article->title
         ]);
     }
-
 }

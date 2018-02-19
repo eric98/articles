@@ -1,6 +1,7 @@
 <?php
 
 namespace Acacha\Events\Http\Requests\Traits;
+
 use Auth;
 
 /**
@@ -18,7 +19,9 @@ trait ChecksPermissions
      */
     protected function hasPermissionTo($permission)
     {
-        if (Auth::user()->hasPermissionTo($permission)) return true;
+        if (Auth::user()->hasPermissionTo($permission)) {
+            return true;
+        }
         return false;
     }
 
@@ -28,9 +31,11 @@ trait ChecksPermissions
      * @param $model
      * @return bool
      */
-    protected function owns($model,$field = 'user_id')
+    protected function owns($model, $field = 'user_id')
     {
-        if (Auth::user()->id == $this->$model->$field) return true;
+        if (Auth::user()->id == $this->$model->$field) {
+            return true;
+        }
         return false;
     }
 }

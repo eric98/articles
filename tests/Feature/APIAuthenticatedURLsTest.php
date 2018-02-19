@@ -13,7 +13,7 @@ use Tests\TestCase;
  *
  * @package Tests\Feature
  */
-class AuthenticatedURLSTest extends TestCase
+class APIAuthenticatedURLsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -53,10 +53,9 @@ class AuthenticatedURLSTest extends TestCase
      * @test
      * @dataProvider authenticatedURIs
      */
-    public function uri_requires_authenticated_user($method , $uri)
+    public function uri_requires_authenticated_user($method, $uri)
     {
         $response = $this->json($method, $uri);
         $response->assertStatus(401);
     }
-
 }

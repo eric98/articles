@@ -21,8 +21,12 @@ class UpdateUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('update-user')) return true;
-        if ($this->owns('user')) return true;
+        if ($this->hasPermissionTo('update-user')) {
+            return true;
+        }
+        if ($this->owns('user')) {
+            return true;
+        }
         return false;
     }
 

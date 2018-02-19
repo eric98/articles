@@ -21,7 +21,9 @@ class DestroyUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('destroy-user')) return true;
+        if ($this->hasPermissionTo('destroy-user')) {
+            return true;
+        }
         return false;
     }
 
