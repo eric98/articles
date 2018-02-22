@@ -2,9 +2,8 @@
 
 namespace Ergare17\Articles\Http\Requests;
 
-use Acacha\Events\Http\Requests\Traits\ChecksPermissions;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Auth;
 /**
  * Class DestroyArticle
  *
@@ -12,7 +11,6 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class DestroyArticle extends FormRequest
 {
-    use ChecksPermissions;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,13 +19,7 @@ class DestroyArticle extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('destroy-articles')) {
-            return true;
-        }
-        if ($this->owns('article')) {
-            return true;
-        }
-        return false;
+        return Auth::user()->hasPermissionTo('destroy-articles');
     }
 
     /**

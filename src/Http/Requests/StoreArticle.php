@@ -2,7 +2,6 @@
 
 namespace Ergare17\Articles\Http\Requests;
 
-use Acacha\Events\Http\Requests\Traits\ChecksPermissions;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
  */
 class StoreArticle extends FormRequest
 {
-    use ChecksPermissions;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +20,7 @@ class StoreArticle extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('store-articles')) {
-            return true;
-        }
-        if (Auth::user()->id === $this->user_id) {
-            return true;
-        }
-        return false;
+        return Auth::user()->hasPermissionTo('store-articles');
     }
 
     /**

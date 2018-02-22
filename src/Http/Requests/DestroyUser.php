@@ -2,8 +2,8 @@
 
 namespace Ergare17\Articles\Http\Requests;
 
-use Acacha\Events\Http\Requests\Traits\ChecksPermissions;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class DestroyUser
@@ -21,10 +21,7 @@ class DestroyUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('destroy-user')) {
-            return true;
-        }
-        return false;
+        return Auth::user()->hasPermissionTo('destroy-user');
     }
 
     /**

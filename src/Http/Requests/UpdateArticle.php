@@ -2,8 +2,8 @@
 
 namespace Ergare17\Articles\Http\Requests;
 
-use Acacha\Events\Http\Requests\Traits\ChecksPermissions;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class UpdateArticle
@@ -12,7 +12,6 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class UpdateArticle extends FormRequest
 {
-    use ChecksPermissions;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,13 +20,7 @@ class UpdateArticle extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('update-articles')) {
-            return true;
-        }
-        if ($this->owns('article')) {
-            return true;
-        }
-        return false;
+        return Auth::user()->hasPermissionTo('update-articles');
     }
 
     /**
@@ -38,7 +31,7 @@ class UpdateArticle extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'title' => 'required'
         ];
     }
 }

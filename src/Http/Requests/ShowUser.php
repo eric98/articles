@@ -2,8 +2,8 @@
 
 namespace Ergare17\Articles\Http\Requests;
 
-use Acacha\Events\Http\Requests\Traits\ChecksPermissions;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ShowUser
@@ -12,7 +12,6 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class ShowUser extends FormRequest
 {
-    use ChecksPermissions;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,13 +20,7 @@ class ShowUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->hasPermissionTo('show-user')) {
-            return true;
-        }
-        if ($this->owns('user', 'id')) {
-            return true;
-        }
-        return false;
+        return Auth::user()->hasPermissionTo('show-user');
     }
 
     /**
