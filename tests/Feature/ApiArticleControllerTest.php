@@ -36,7 +36,7 @@ class ApiArticleControllerTest extends TestCase
         factory(Article::class, 3)->create();
 
         $user = $this->loginAndAuthorize();
-        View::share('user',$user);
+        View::share('user', $user);
         $this->actingAs($user, 'api');
 
         $response = $this->json('GET', '/api/v1/articles');
