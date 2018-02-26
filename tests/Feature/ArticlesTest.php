@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Ergare17\Articles\Feature;
 
 use App\User;
 use Ergare17\Articles\Models\Article;

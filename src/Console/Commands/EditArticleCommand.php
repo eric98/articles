@@ -21,7 +21,7 @@ class EditArticleCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'article:edit {id? : The article id} {title? : The article title} {user_id? : The user id}';
+    protected $signature = 'article:edit {id? : The article id} {title? : The article title} {description? : The article description} {user_id? : The user id}';
 
     /**
      * The console command description.
@@ -52,6 +52,7 @@ class EditArticleCommand extends Command
             $article = Article::findOrFail($id);
             $article->update([
                 'title'        => $this->argument('title') ? $this->argument('title') : $this->ask('Article title?', $article->title),
+                'description'        => $this->argument('description') ? $this->argument('description') : $this->ask('Article description?', $article->description),
                 'user_id'     => $this->argument('user_id') ? $this->argument('user_id') : $this->askForUsers(),
             ]);
         } catch (Exception $e) {

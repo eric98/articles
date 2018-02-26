@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Ergare17\Articles\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Ergare17\Articles\Feature;
 
 use App\User;
 use Ergare17\Articles\Models\Article;
@@ -16,7 +16,16 @@ class ApiArticleControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-//        $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
+    }
+
+    protected function loginAndAuthorize()
+    {
+        $user = factory(User::class)->create();
+        $user->assignRole('articles-manager');
+        $this->actingAs($user, 'api');
+
+        return $user;
     }
 
     /**
@@ -26,8 +35,8 @@ class ApiArticleControllerTest extends TestCase
     {
         factory(Article::class, 3)->create();
 
-        $user = factory(User::class)->create();
-//        View::share('user',$user);
+        $user = $this->loginAndAuthorize();
+        View::share('user',$user);
         $this->actingAs($user, 'api');
 
         $response = $this->json('GET', '/api/v1/articles');

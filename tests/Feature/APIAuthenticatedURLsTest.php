@@ -1,10 +1,7 @@
 <?php
 
-namespace Tests\Feature;
+namespace Ergare17\Articles\Feature;
 
-use Acacha\Events\Models\Event;
-use App\User;
-use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

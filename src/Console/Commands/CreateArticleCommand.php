@@ -5,15 +5,18 @@ namespace Ergare17\Articles\Console\Commands;
 use Ergare17\Articles\Models\Article;
 use Illuminate\Console\Command;
 use Mockery\Exception;
+use Ergare17\Articles\Console\Commands\Traits\AsksForUsers;
 
 class CreateArticleCommand extends Command
 {
+    use AsksForUsers;
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'article:create {title? : The article title} {description? : The article description}';
+    protected $signature = 'article:create {title? : The article title} {description? : The article description} {user_id? : The user id}';
 
     /**
      * The console command description.
