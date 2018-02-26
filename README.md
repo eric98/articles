@@ -10,7 +10,6 @@
 [![StyleCI](https://styleci.io/repos/107276023/shield?branch=master)](https://styleci.io/repos/107276023)
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status](https://travis-ci.org/eric98/articles.svg?branch=master)](https://travis-ci.org/eric98/articles)[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Dependency Status](https://www.versioneye.com/user/projects/5a1846480fb24f2125872a77/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a1846480fb24f2125872a77)
