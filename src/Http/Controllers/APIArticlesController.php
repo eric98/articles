@@ -16,7 +16,7 @@ class APIArticlesController extends Controller
         return Article::all();
     }
 
-    public function show(ShowArticle $article)
+    public function show(ShowArticle $request, Article $article)
     {
         return $article;
     }

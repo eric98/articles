@@ -31,7 +31,7 @@ class StoreArticle extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'title' => 'required',
             'user_id' => 'required'
         ];
     }
