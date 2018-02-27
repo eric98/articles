@@ -139,7 +139,6 @@ class PHPArticlesTest extends DuskTestCase
 
             $browser->clickLink('Back');
             $browser->assertSee('Buy bread');
-
         });
     }
 
