@@ -32,7 +32,7 @@ class StoreArticle extends FormRequest
     {
         return [
             'title' => 'required',
-            'user_id' => 'required'
+            'description' => 'required',
         ];
     }
 }

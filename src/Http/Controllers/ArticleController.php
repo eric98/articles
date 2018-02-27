@@ -2,6 +2,11 @@
 
 namespace Ergare17\Articles\Http\Controllers;
 
+use App\User;
+use Ergare17\Articles\Http\Requests\DestroyArticle;
+use Ergare17\Articles\Http\Requests\ShowArticle;
+use Ergare17\Articles\Http\Requests\StoreArticle;
+use Ergare17\Articles\Http\Requests\UpdateArticle;
 use Ergare17\Articles\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -30,7 +35,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles::create_article');
+        $users = User::all();
+
+        return view('articles::create_article', ['users' => $users]);
     }
 
     /**
@@ -39,9 +46,14 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreArticle $request)
     {
-        Article::create($request->only(['title','description']));
+        Article::create([
+            'title'             => $request->title,
+            'description'      => $request->description,
+            'user_id'          => $request->user_id,
+            'read'        => false,
+        ]);
 
         Session::flash('status', 'Created ok!');
         return Redirect::to('/articles_php/create');
@@ -53,7 +65,7 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(ShowArticle $request,Article $article)
     {
 //        dump($artice->title);
 //        return view('show_article',compact('article'));
@@ -91,7 +103,9 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles::edit_article', ['article' => $article]);
+        $users = User::all();
+
+        return view('articles::edit_article', ['article' => $article,'users' => $users]);
     }
 
     /**
@@ -101,9 +115,9 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(UpdateArticle $request, Article $article)
     {
-        $article->update($request->only(['title','description']));
+        $article->update($request->only(['title','description','user_id']));
 
         Session::flash('status', 'Edited ok!');
         return Redirect::to('/articles_php/edit/'.$article->id);
@@ -115,7 +129,7 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(DestroyArticle $request,Article $article)
     {
         $article->delete();
         Session::flash('status', 'Article was deleted successful!');
