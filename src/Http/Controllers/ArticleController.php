@@ -65,7 +65,7 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(ShowArticle $request,Article $article)
+    public function show(ShowArticle $request, Article $article)
     {
 //        dump($artice->title);
 //        return view('show_article',compact('article'));
@@ -129,7 +129,7 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DestroyArticle $request,Article $article)
+    public function destroy(DestroyArticle $request, Article $article)
     {
         $article->delete();
         Session::flash('status', 'Article was deleted successful!');
