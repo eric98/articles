@@ -8,6 +8,7 @@
 [![Daily Downloads](https://poser.pugx.org/ergare17/articles/d/daily)](https://packagist.org/packages/ergare17/articles)
 [![composer.lock](https://poser.pugx.org/ergare17/articles/composerlock)](https://packagist.org/packages/ergare17/articles)
 [![StyleCI](https://styleci.io/repos/107276023/shield?branch=master)](https://styleci.io/repos/107276023)
+[![Build Status](https://travis-ci.org/eric98/articles.svg?branch=master)](https://travis-ci.org/eric98/articles)
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Quality Score][ico-code-quality]][link-code-quality]
