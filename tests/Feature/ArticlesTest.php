@@ -8,7 +8,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\View;
 use Tests\TestCase;
 
-
 class ArticlesTest extends TestCase
 {
     use RefreshDatabase;
