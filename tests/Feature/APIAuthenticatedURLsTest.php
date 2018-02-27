@@ -1,9 +1,9 @@
 <?php
 
 namespace Ergare17\Articles\Feature;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-
 
 /**
  * Class AuthenticatedURLSTest.
