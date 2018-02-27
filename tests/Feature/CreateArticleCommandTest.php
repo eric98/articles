@@ -3,10 +3,10 @@
 namespace Ergare17\Articles\Feature;
 
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Ergare17\Articles\TestCase;
+use Ergare17\Articles\Traits\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Mockery;
-use Tests\TestCase;
 
 class CreateArticleCommandTest extends TestCase
 {

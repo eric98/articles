@@ -4,9 +4,9 @@ namespace Ergare17\Articles\Feature;
 
 use App\User;
 use Ergare17\Articles\Models\Article;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Ergare17\Articles\TestCase;
+use Ergare17\Articles\Traits\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
-use Tests\TestCase;
 
 /**
  * Class ListArticleCommandTest.

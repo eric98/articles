@@ -2,8 +2,8 @@
 
 namespace Ergare17\Articles\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Ergare17\Articles\TestCase;
+use Ergare17\Articles\Traits\RefreshDatabase;
 
 /**
  * Class ApiEventsTest.
