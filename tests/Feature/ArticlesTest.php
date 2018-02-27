@@ -4,8 +4,10 @@ namespace Ergare17\Articles\Feature;
 
 use App\User;
 use Ergare17\Articles\Models\Article;
-use Ergare17\Articles\TestCase;
-use Ergare17\Articles\Traits\RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\View;
+use Tests\TestCase;
+
 
 class ArticlesTest extends TestCase
 {
@@ -14,7 +16,16 @@ class ArticlesTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        initialize_articles_permissions();
 //        $this->withoutExceptionHandling();
+    }
+
+    protected function loginAsArticleManager()
+    {
+        $user = factory(User::class)->create();
+        $user->assignRole('articles-manager');
+        $this->actingAs($user);
+        View::share('user', $user);
     }
 
     public function testShowAllArticles()
@@ -25,8 +36,7 @@ class ArticlesTest extends TestCase
         // 2) Executo el codi que vull provar
         // 3) Comprovo: assert
 
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
+        $this->loginAsArticleManager();
 
         $articles = factory(Article::class, 50)->create();
 
@@ -42,14 +52,14 @@ class ArticlesTest extends TestCase
     }
 
     /**
-     * @group todo
+     *
      */
     public function testShowAnArticle()
     {
         // Preparo
         $article = factory(Article::class)->create();
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
+        $this->loginAsArticleManager();
+
         // Executo
         $response = $this->get('/articles_php/'.$article->id);
         // Comprovo
@@ -65,13 +75,13 @@ class ArticlesTest extends TestCase
     }
 
     /**
-     * @group todo
+     *
      */
     public function testNotShowAnArticle()
     {
         // Executo
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
+        $this->loginAsArticleManager();
+
         $response = $this->get('/articles_php/999999');
         // Comprovo
         $response->assertStatus(404);
@@ -82,8 +92,8 @@ class ArticlesTest extends TestCase
     public function testShowCreateArticleForm()
     {
         // Preparo
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
+        $this->loginAsArticleManager();
+
         // Executo
         $response = $this->get('/articles_php/create');
         // Comprovo
@@ -96,8 +106,8 @@ class ArticlesTest extends TestCase
     {
         // Preparo
         $article = factory(Article::class)->create();
-        $user = factory(User::class)->create();
-        $this->actingAs($user);
+        $this->loginAsArticleManager();
+
         // Executo
         $response = $this->get('/articles_php/edit/'.$article->id);
         // Comprovo

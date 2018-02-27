@@ -19,7 +19,7 @@
 
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Task:</h3>
+            <h3 class="box-title">Article:</h3>
         </div>
         <div class="box-body">
             <ul>
